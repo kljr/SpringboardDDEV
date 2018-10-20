@@ -95,7 +95,7 @@ To wipe and reload the db:
 
 ## Useful shell aliases and functions
 
-Most of these are available by default on the virtual machine. See templates/bashrc_host for a template formatted to
+Most of these are available by default on the virtual machine. See templates/bashrc for a template formatted to
 copy and paste to your computer's .bashrc file.
 
 > Directory switching
