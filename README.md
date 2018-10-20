@@ -32,8 +32,7 @@ Run `composer update` from inside the repository folder
 Copy the contents of `templates/bashrc` to your .bashrc file,
 and set the correct path for the PATH_TO_SB_VALET constant. This will provide the
 aliases and shortcuts that make it easier to manage Springboard Valet
-and navigate among multiple sites. These aliases are also automatically
-installed on the guest.
+and navigate among multiple sites. 
 
 After the initial install, if you want to create additional Springboard sites besides the two
 default sites, update local.config.yml with your new site info.
