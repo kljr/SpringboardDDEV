@@ -1,0 +1,41 @@
+{
+    "name": "jacksonriver/springboard_vm",
+    "description": "Springboard with Composer + DrupalVM + Codeception.",
+    "type": "project",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jacksonriver/springboard-composer",
+                "version": "dev-develop",
+                "source": {
+                    "url": "https://github.com/JacksonRiver/springboard-composer.git",
+                    "type": "git",
+                    "reference": "develop"
+                }
+            }
+        }
+    ],
+    "require": {
+        "composer/installers": "^1.0.20",
+        "mnsami/composer-custom-directory-installer": "1.1.*",
+        "jacksonriver/springboard-composer": "dev-develop"
+    },
+    "require-dev": {
+        "composer/installers": "~1.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+    },
+    "config": {
+      "preferred-install": "source"
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "scripts/make-sb.sh",
+            "scripts/install-codeception.sh"
+        ]
+    }
+}

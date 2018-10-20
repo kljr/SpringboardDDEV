@@ -1,0 +1,156 @@
+# Useful shell aliases
+
+# All you need to do is define this path and copy this file to .bashrc
+
+PATH_TO_SB_VALET=/absolute-path/to/springboard_vm_install_directory
+
+# Add these to your .bashrc or .bash_alias.
+
+#  Directory switching
+
+alias sbvt='cd $PATH_TO_SB_VALET'
+
+function cdv(){
+    if [ $# -eq 0 ]; then
+        f=${#PATH_TO_SB_VALET}
+        g=${PWD:0:$f+7}
+        h=${PWD:$f+7}
+        l=$PWD
+        i=$(strpos $h '/')
+        if [ -z $i ]; then
+            dir=$PWD
+        else
+            j=${h:0:$i}
+            dir=$g$j
+        fi
+        if [ -d $dir ]; then
+            cd $dir
+            echo "you're in" $dir
+        else
+            echo "Can't find that directory"
+        fi
+    else
+       if [ -d $PATH_TO_SB_VALET/sites/$1 ]; then
+         cd $PATH_TO_SB_VALET/sites/$1
+       else
+         echo "Can't find that directory"
+       fi
+   fi
+}
+
+# Switch to modules dir.
+function cdvm(){
+    if [ $# -eq 0 ]; then
+        f=${#PATH_TO_SB_VALET}
+        g=${PWD:0:$f+7}
+        h=${PWD:$f+7}
+        i=$(strpos $h '/')
+        if [ -z $i ]; then
+            dir=$PWD/web/sites/all/modules/springboard
+        else
+            j=${h:0:$i}
+            dir=$g$j/web/sites/all/modules/springboard
+        fi
+        if [ -d $dir ]; then
+            cd $dir
+            echo "you're in" $dir
+        else
+        echo $dir
+            echo "Can't find that directory"
+        fi
+    else
+          if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/modules/springboard
+          else
+          echo $PATH_TO_SB_VALET/sites/$1
+            echo "Can't find that directory"
+          fi
+    fi
+}
+# example: "cdv sbvt" - switch to springboard modules directory of the sbvt install
+
+
+# Switch to themes dir.
+
+function cdvt(){
+    if [ $# -eq 0 ]; then
+        f=${#PATH_TO_SB_VALET}
+        g=${PWD:0:$f+7}
+        h=${PWD:$f+7}
+        i=$(strpos $h '/')
+        if [ -z $i ]; then
+            dir=$PWD/web/sites/all/themes/springboard_themes
+        else
+	  	      j=${h:0:$i}
+  	  	    dir=$g$j/web/sites/all/themes/springboard_themes
+  	  	fi
+        if [ -d $dir ]; then
+            cd $dir
+            echo "you're in" $dir
+
+        else
+            echo "Can't find that directory"
+        fi
+    else
+        if [ -d $PATH_TO_SB_VALET/sites/$1 ] &&  [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/themes/springboard_themes
+        else
+            echo "Can't find that directory"
+        fi
+    fi
+}
+# example: "cdvt sbvt" - switch to springboard themes directory of the sbvt install
+
+# Switch to libraries dir.
+function cdvl(){
+    if [ $# -eq 0 ]; then
+        f=${#PATH_TO_SB_VALET}
+        g=${PWD:0:$f+7}
+        h=${PWD:$f+7}
+        i=$(strpos $h '/')
+        if [ -z $i ]; then
+            dir=$PWD/web/sites/all/libraries
+        else
+			j=${h:0:$i}
+        	dir=$g$j/web/sites/all/libraries
+        fi
+        if [ -d $dir ]; then
+            cd $dir
+            echo "you're in" $dir
+        else
+            echo "Can't find that directory"
+        fi
+    else
+        if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/librarires
+        else
+            echo "Can't find that directory"
+        fi
+    fi
+}
+# example: "cdvl sbvt" - switch to libraries directory of the sbvt install
+
+
+#  Executables
+
+alias sbvt-make='$PATH_TO_SB_VALET/scripts/make-sb.sh'
+alias sbvt-wipe='$PATH_TO_SB_VALET/scripts/wipe-test-db.sh'
+alias sbvt-wipe_clean='$PATH_TO_SB_VALET/scripts/wipe-test-db-clean.sh'
+
+# Aliases that can only be run from the host machine:
+# Vagrant
+
+# Refresh vhosts and create dbs for new sites
+
+alias sbvt-build='$PATH_TO_SB_VALET/scripts/make-sb.sh'
+alias sbvt-art='$PATH_TO_SB_VALET/scripts/load-artifact.sh'
+
+
+function strpos()
+{
+    str=${1/$2*/}
+    if [ "${#str}" -eq "${#1}" ]; then
+        return 0
+    fi
+    echo ${#str}
+}

@@ -1,0 +1,23 @@
+class_name: FunctionalTester
+# By default we run test against a ddev local site, copy this file to functional.suite.yml to change that.
+extensions:
+    enabled:
+        - Codeception\Extension\Phantoman
+modules:
+    enabled:
+        - Asserts
+        - Cli
+        - \Helper\Functional
+        - WebDriver:
+            url: http://sbvt.test
+            browser: phantomjs
+            window_size: 'maximize'
+    config:
+        MailHog:
+            url: 'http://sbvt.test'
+            port: '8025'
+paths:
+    envs: tests/_envs
+groups:
+    paracept_group_*: tests/_output/paracept_group_*
+drush-command: drush @sbvt %command
