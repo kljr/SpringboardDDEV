@@ -17,7 +17,7 @@ of the Springboard repositories - and quick, pain-free provisioning, management 
 
 Install Homebrew, or update Homebrew to the latest version using `brew update`.
 
-Install PHP 7.1 using Homebrew via brew install php@7.1. Springbord is not compatible with PHP 7.2, so you'll need to remove that if you have it linked.
+Install PHP 7.1 using Homebrew via brew install php@7.1. Springboard is not compatible with PHP 7.2, so you'll need to remove that if you have it linked.
 
 Install Valet with Composer via `composer global require laravel/valet`. Make sure the ~/.composer/vendor/bin directory is in your system's "PATH".
 
