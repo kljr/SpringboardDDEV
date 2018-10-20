@@ -134,8 +134,8 @@ function cdvl(){
 #  Executables
 
 alias sbvt-make='$PATH_TO_SB_VALET/scripts/make-sb.sh'
-alias sbvt-wipe='$PATH_TO_SB_VALET/scripts/wipe-test-db.sh'
-alias sbvt-wipe_clean='$PATH_TO_SB_VALET/scripts/wipe-test-db-clean.sh'
+alias sbvt-wipe='$PATH_TO_SB_VALET/scripts/wipe-db.sh'
+alias sbvt-wipe_clean='$PATH_TO_SB_VALET/scripts/wipe-db-clean.sh'
 
 # Aliases that can only be run from the host machine:
 # Vagrant

@@ -2,7 +2,14 @@
 
 echo "Enter the project root of the site you want to update, followed by [ENTER]:"
 read docroot
-docpath="/vagrant/sites/$docroot"
+
+script_dir="${BASH_SOURCE%/*}"
+if [[ ! -d "$script_dir" ]]; then script_dir="$PWD"; fi
+source "$script_dir/parse-yaml.sh"
+cd $script_dir
+PATH_TO_SBVT=${PWD:0:${#PWD} - 8}
+
+docpath="${PATH_TO_SBVT}/sites/$docroot"
 
 if [ ! -d $docpath ]; then
   echo "Can't find that directory."
@@ -12,7 +19,7 @@ fi
 echo "Enter the foldername in the artifacts directory whose files and database you want to load. [ENTER]:"
 read artifact
 
-if [ ! -d /vagrant/artifacts/sites/$artifact ]; then
+if [ ! -d ${PATH_TO_SBVT}/artifacts/sites/$artifact ]; then
   echo "Can't find the artifacts directory."
   exit 0
 fi
@@ -27,15 +34,15 @@ done
 
 
 if [ ${FILES} = true ]; then
-    if [ ! -f /vagrant/artifacts/sites/$artifact/files.tar.gz ]; then
+    if [ ! -f ${PATH_TO_SBVT}/artifacts/sites/$artifact/files.tar.gz ]; then
       echo "Can't find the files archive in that artifact."
       exit 0
     fi
-    gunzip /vagrant/artifacts/sites/$artifact/files.tar.gz
-    mkdir /vagrant/artifacts/sites/$artifact/files
-    tar -xf /vagrant/artifacts/sites/$artifact/files.tar -C /vagrant/artifacts/sites/$artifact/files
+    gunzip ${PATH_TO_SBVT}/artifacts/sites/$artifact/files.tar.gz
+    mkdir ${PATH_TO_SBVT}/artifacts/sites/$artifact/files
+    tar -xf ${PATH_TO_SBVT}/artifacts/sites/$artifact/files.tar -C ${PATH_TO_SBVT}/artifacts/sites/$artifact/files
 
-    if [ -d /vagrant/artifacts/sites/$artifact/files ] && [ "$(ls -A /vagrant/artifacts/sites/$artifact/files)" ]; then
+    if [ -d ${PATH_TO_SBVT}/artifacts/sites/$artifact/files ] && [ "$(ls -A ${PATH_TO_SBVT}/artifacts/sites/$artifact/files)" ]; then
         echo "untarring"
         if [ -d $docpath/web/sites/default/files ]; then
             echo "Delete $docpath/web/sites/default/files"
@@ -49,13 +56,13 @@ if [ ${FILES} = true ]; then
 
         if [ -d $docpath/sites/default ]  && [ ${FILES} = true ]; then
               echo "moving files"
-              sudo mv /vagrant/artifacts/sites/$artifact/files $docpath/web/sites/default
+              sudo mv ${PATH_TO_SBVT}/artifacts/sites/$artifact/files $docpath/web/sites/default
               echo "files moved"
         else
-              rm -r /vagrant/artifacts/sites/$artifact/files; echo $PWD;
+              rm -r ${PATH_TO_SBVT}/artifacts/sites/$artifact/files; echo $PWD;
               echo "Can't find the file path, or you cancelled."
         fi
-    gzip /vagrant/artifacts/sites/$artifact/files.tar
+    gzip ${PATH_TO_SBVT}/artifacts/sites/$artifact/files.tar
     else
         exit 0;
     fi
@@ -70,18 +77,18 @@ select yn in "Yes" "No"; do
 done
 
 if [ ${DB} = true ]; then
-    if [ ! -f /vagrant/artifacts/sites/$artifact/dump.sql.gz ]; then
+    if [ ! -f ${PATH_TO_SBVT}/artifacts/sites/$artifact/dump.sql.gz ]; then
       echo "Can't find the sql dump in that artifact."
       exit 0
     fi
     echo "loading db"
-    gunzip /vagrant/artifacts/sites/$artifact/dump.sql.gz
-    if [ -f /vagrant/artifacts/sites/$artifact/dump.sql ]; then
-       cd /vagrant/sites/$docroot/web
+    gunzip ${PATH_TO_SBVT}/artifacts/sites/$artifact/dump.sql.gz
+    if [ -f ${PATH_TO_SBVT}/artifacts/sites/$artifact/dump.sql ]; then
+       cd ${PATH_TO_SBVT}/sites/$docroot/web
        drush sql-drop
        echo "Importing db"
-       drush sql-cli < /vagrant/artifacts/sites/$artifact/dump.sql
+       drush sql-cli < ${PATH_TO_SBVT}/artifacts/sites/$artifact/dump.sql
        echo "DB finished"
-       gzip /vagrant/artifacts/sites/$artifact/dump.sql
+       gzip ${PATH_TO_SBVT}/artifacts/sites/$artifact/dump.sql
     fi
 fi
