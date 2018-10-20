@@ -37,7 +37,7 @@ installed on the guest.
 
 After the initial install, if you want to create additional Springboard sites besides the two
 default sites, update local.config.yml with your new site info.
- Then run `scripts/make-sb.sh` (alias 'sbvt-make')
+ Then run `scripts/make-sbvt.sh` (alias 'sbvt-make')
  
 ## What does Springboard Valet do?
 
@@ -62,14 +62,14 @@ keep your aliases short and simple.
 If you want to add a new site to a previously provisioned Springboard Valet,
 then you need to:
 * Define the project in local.config.yml
-* Run `scripts/make-sb.sh` (alias sbvt-make)
+* Run `scripts/make-sbvt.sh` (alias sbvt-make)
 
 Adding too many sites at once can cause PHP timeouts, so be reasonable.
 
 ## Updating existing Springboard sites
 
 * Updating sites is easy with springboard-composer, and not covered here, but if you want to replace all code in a site, including any repositories and databases, just delete the site root folder, and
-run `scripts/make-sb.sh` (alias sbvt-make).
+run `scripts/make-sbvt.sh` (alias sbvt-make).
 
 ## Replacing default content with reference databases and files
 
@@ -77,7 +77,7 @@ There's not a direct connection to S3, but if you place gzipped files and dbs in
 the `artifacts/sites` folder according to the instructions in the
  [readme,](https://github.com/kljr/springboard-valet/blob/master/artifacts/README.md)
 you can automatically replace any site's files and/or database with those items
- by running `scripts/load-artifact.sh.` (alias sbvt-art)
+ by running `scripts/artifact.sh.` (alias sbvt-art)
 
 ## Running tests
 
