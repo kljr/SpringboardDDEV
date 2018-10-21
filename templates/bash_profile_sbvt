@@ -1,0 +1,4 @@
+
+if [ -f $HOME/.bashrc_sbvt ]; then
+    . $HOME/.bashrc_sbvt
+fi

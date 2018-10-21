@@ -6,19 +6,19 @@
  * @see example.aliases.drushrc.php.
  */
 
-$path = '/Users/a/desktop/springboard-valet/sites';
+$path = 'absolute_path_to_springboard_valet_sites_directory';
 
-$dirs = array_diff(scandir($directory), array('..', '.'));
+$dirs = array_diff(scandir($path), array('..', '.'));
 
 foreach ($dirs as $alias) {
-  $aliases[$alias] = array(
-    'uri' => $alias . '.test',
-    'root' => '/Users/a/desktop/springboard-valet/sites/' . $alias . '/web',
-    'path-aliases' => array(
-      '%drush-script' => '/usr/local/bin/drush',
-    ),
-  );
+  $dir = $path . '/' . $alias;
+  if (file_exists($dir) && is_dir($dir)) {
+    $aliases['sbvt-' . $alias] = array(
+      'uri' => $alias . '.test',
+      'root' => $path . '/sites/' . $alias . '/web',
+      'path-aliases' => array(
+        '%drush-script' => '/usr/local/bin/drush',
+      ),
+    );
+  }
 }
-
-
-

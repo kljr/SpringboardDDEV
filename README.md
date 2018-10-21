@@ -27,12 +27,9 @@ Then clone this repository.
 
 Copy `example.local.config.yml` to `local.config.yml`.
 
-Run `composer update` from inside the repository folder
+Run `composer install` from inside the repository folder and follow the prompts.
 
-Copy the contents of `templates/bashrc` to your .bashrc file,
-and set the correct path for the PATH_TO_SB_VALET constant. This will provide the
-aliases and shortcuts that make it easier to manage Springboard Valet
-and navigate among multiple sites. 
+If you don't want to automatically install the shell commands and drush aliases, you'll need to manually copy the files from the templates directory to the correct locations.
 
 After the initial install, if you want to create additional Springboard sites besides the two
 default sites, update local.config.yml with your new site info.
@@ -53,7 +50,7 @@ modules: `drush dm-prep` installs admin_menu, module_filter, and devel,
 and disables toolbar menu, configures devel and the views admin UI, and
 sets the admin password to "admin".
 * Provides shell aliases and functions to quickly navigate the directory hierarchy and perform tasks.
-* Creates Drush aliases which match your project_root folder name: `drush @`[`project_root`], allowing you to
+* Creates Drush aliases which match your project_root folder name: `drush @sbvt-`[`project_root`], allowing you to
 keep your aliases short and simple.
 
 ## Updating virtual hosts and adding new sites.
@@ -61,14 +58,14 @@ keep your aliases short and simple.
 If you want to add a new site to a previously provisioned Springboard Valet,
 then you need to:
 * Define the project in local.config.yml
-* Run `scripts/make-sbvt.sh` (alias sbvt-make)
+* Run `scripts/sbvt-make.sh` (alias sbvt-make)
 
 Adding too many sites at once can cause PHP timeouts, so be reasonable.
 
 ## Updating existing Springboard sites
 
 * Updating sites is easy with springboard-composer, and not covered here, but if you want to replace all code in a site, including any repositories and databases, just delete the site root folder, and
-run `scripts/make-sbvt.sh` (alias sbvt-make).
+run `scripts/sbt-make.sh` (alias sbvt-make).
 
 ## Replacing default content with reference databases and files
 
