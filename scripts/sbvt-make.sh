@@ -53,23 +53,21 @@ if [ ! -d ${SBVT_SITES}/sbvt ]; then
                 fi;
            fi;
         fi;
-
-        cd ${PATH_TO_SBVT};
     else
       echo "The drupal directory doesn't exist. Drush make must have failed."
     fi;
 fi;
 
-if [ ! -d ${SBVT_SITES}/sbvt ]; then
+if [ -d ${SBVT_SITES}/sbvt ]; then
     if [ ! -f ${SBVT_SITES}/sbvt/web/sites/default/settings.php ]; then
         cp ${PATH_TO_SBVT}/templates/settings.php ${SBVT_SITES}/sbvt/web/sites/default/settings.php
         sed -i '' -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/sbvt/web/sites/default/settings.php
         sed -i '' -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/sbvt/web/sites/default/settings.php
         sed -i '' -e "s/sbvtdb/sbvt/g" ${SBVT_SITES}/sbvt/web/sites/default/settings.php
     fi;
-
-    default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} sbvt -e 'show tables;' | grep system);
+    default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} sbvt -e 'show tables;' | grep system) || exit 1;
     if [ ! $default_db_populated ]; then
+        cd ${SBVT_SITES}/sbvt/web
         drush sql-create -y
         gunzip < ${SBVT_SITES}/sbvt/.circleci/springboard.sql.gz | drush sql-cli
         drush vset encrypt_secure_key_path ${SBVT_SITES}/sbvt/sites/default/files/
@@ -89,19 +87,20 @@ if [ ! -d ${SBVT_SITES}/sbvt ]; then
         \cp ${PATH_TO_SBVT}/templates/codeception/codeception.yml ${SBVT_SITES}/sbvt/tests
         sed -i -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
         sed -i -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
-        sed -i -e "s/sbvtpass/${mysql_pass}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
+        sed -i -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
 
     fi;
     if [ -d ${SBVT_SITES}/sbvt ] && [ ! -f ${SBVT_SITES}/sbvt/tests/functional.suite.yml ]; then
         \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/sbvt/tests
-        sed -i -e "s/sbvt\.test/${name}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
-        sed -i -e "s/sbvt/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
+#        sed -i -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
+#        sed -i -e "s/sbvt/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
     fi;
     if [ -d ${SBVT_SITES}/sbvt ] && [ ! -f ${SBVT_SITES}/sbvt/tests/acceptance.suite.yml ]; then
         \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/sbvt/tests
     fi;
-
-    ln -s ${SBVT_SITES}/sbvt/web ~/.config/valet/Sites/sbvt
+    if [ ! -d ~/.config/valet/Sites/sbvt ]; then
+        ln -s ${SBVT_SITES}/sbvt/web ~/.config/valet/Sites/sbvt
+    fi;
 fi;
 
 for project in ${!projects__projectroot*}
@@ -145,11 +144,8 @@ for project in ${!projects__projectroot*}
                     fi;
                 fi;
             fi;
-
-            cd ${SBVT_SITES}/$directory/web;
-
         fi;
-
+        cd ${SBVT_SITES}/$directory/web;
         if [ ! -f ${SBVT_SITES}/$directory/web/sites/default/settings.php ]; then
             cp ${PATH_TO_SBVT}/templates/settings.php ${SBVT_SITES}/$directory/web/sites/default/settings.php
             sed -i '' -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
@@ -158,7 +154,7 @@ for project in ${!projects__projectroot*}
             sed -i '' -e "s/'.sbvt.test'/'.${directory}.test'/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
         fi;
 
-        default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system);
+        default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system) || exit 1;
         if [ ! $default_db_populated ]; then
             drush sql-create -y
             gunzip < ${SBVT_SITES}/$directory/.circleci/springboard.sql.gz | drush sql-cli
@@ -183,12 +179,13 @@ for project in ${!projects__projectroot*}
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/functional.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/$directory/tests
-            sed -i -e "s/sbvt\.test/${name}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
             sed -i -e "s/sbvt/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/acceptance.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/$directory/tests
         fi;
-
-        ln -s ${SBVT_SITES}/$directory/web ~/.config/valet/Sites/$directory
+        if [ ! -d ~/.config/valet/Sites/$directory ]; then
+          ln -s ${SBVT_SITES}/$directory/web ~/.config/valet/Sites/$directory
+        fi;
     done

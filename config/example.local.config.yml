@@ -1,20 +1,13 @@
 mysql_user: "root"
 mysql_password: "root"
 
-# Add additional Springboard installs and vhosts.
-# Don't use any special characters in the docroot name. Only a-z are allowed.
 
+# Springboard will be cloned into springboard-valet/sites/[projectroot]
+# The site will have the hostname [projectroot].test
+# Don't use any special characters in the projectroot. Only a-z, "_", and "-" are allowed.
 projects:
-
   - Description of my project
-    # Springboard will be cloned into springboard-valet/sites/[projectroot]
-    # The site will have the hostname [projectroot].test
-    projectroot: "backend"
+    projectroot: "myproject"
 
-#  - Description of my project
-#    # Springboard will be cloned into springboard-valet/sites/[projectroot]
-#    # The site will have the hostname [projectroot].test
-#    projectroot: "phone"
-
-
-
+  - Description of my other project
+    projectroot: "myotherproject"

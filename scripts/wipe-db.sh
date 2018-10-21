@@ -8,11 +8,12 @@ PATH_TO_SBVT=${PWD:0:${#PWD} - 8}
 
 echo "Enter the project root directory of the site whose db you wish to replace [ENTER]:"
 read dir
-sa=@${dir}
-drush  $sa sql-drop -y
-gunzip < ${PATH_TO_SBVT}/${dir}/.circleci/springboard.sql.gz | drush $sa sql-cli
-drush $sa updb -y
-drush $sa upwd admin --password=admin -y
-drush $sa vset encrypt_secure_key_path ${PATH_TO_SBVT}/${dir}/web/sites/default/files/
-drush $sa cc all
-chmod 775 ${PATH_TO_SBVT}/${dir}/web/sites/default
+
+cd ${PATH_TO_SBVT}/sites/$dir/web
+drush  sql-drop -y
+gunzip < ${PATH_TO_SBVT}/sites/${dir}/.circleci/springboard.sql.gz | drush sql-cli
+drush updb -y
+drush upwd admin --password=admin -y
+drush vset encrypt_secure_key_path ${PATH_TO_SBVT}/sites/${dir}/web/sites/default/files/
+drush cc all
+chmod 775 ${PATH_TO_SBVT}/sites/${dir}/web/sites/default

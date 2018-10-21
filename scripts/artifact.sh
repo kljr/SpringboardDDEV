@@ -8,7 +8,6 @@ if [[ ! -d "$script_dir" ]]; then script_dir="$PWD"; fi
 source "$script_dir/parse-yaml.sh"
 cd $script_dir
 PATH_TO_SBVT=${PWD:0:${#PWD} - 8}
-
 docpath="${PATH_TO_SBVT}/sites/$docroot"
 
 if [ ! -d $docpath ]; then

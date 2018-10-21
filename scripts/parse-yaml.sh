@@ -15,7 +15,8 @@ function parse_yaml {
             if ($2 == "projectroot") {
                 split($3, dirname, "/")
                 if (dirname[1] != "") {
-                    printf("%s%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, "__"dirname[1], dirname[1]);
+                    cleaned = dirname[1]
+                    printf("%s%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, "__"gsub(/\-/,"_",cleaned), dirname[1]);
                 }
             }
             else {
