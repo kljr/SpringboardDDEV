@@ -1,6 +1,6 @@
 {
-    "name": "jacksonriver/springboard_vm",
-    "description": "Springboard with Composer + DrupalVM + Codeception.",
+    "name": "jacksonriver/springboard_valet",
+    "description": "Springboard with Composer + Laravel Valet + Codeception.",
     "type": "project",
     "license": "MIT",
     "repositories": [
@@ -33,9 +33,8 @@
       "preferred-install": "source"
     },
     "scripts": {
-        "post-update-cmd": [
-            "scripts/make-sb.sh",
-            "scripts/install-codeception.sh"
+        "post-install-cmd": [
+            "scripts/sbvt-make.sh"
         ]
     }
 }
