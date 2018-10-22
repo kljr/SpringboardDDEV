@@ -34,6 +34,7 @@
     },
     "scripts": {
         "post-install-cmd": [
+            "scripts/sbvt-install.sh",
             "scripts/sbvt-make.sh"
         ]
     }
