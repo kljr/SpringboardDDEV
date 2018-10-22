@@ -86,15 +86,15 @@ if [ -d ${SBVT_SITES}/sbvt ]; then
 
     if [ -d ${SBVT_SITES}/sbvt ] && [ ! -f ${SBVT_SITES}/sbvt/tests/codeception.yml ]; then
         \cp ${PATH_TO_SBVT}/templates/codeception/codeception.yml ${SBVT_SITES}/sbvt/tests
-        sed -i -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
-        sed -i -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
-        sed -i -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
+        sed -i '' -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
+        sed -i '' -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
+        sed -i '' -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/sbvt/tests/codeception.yml
 
     fi;
     if [ -d ${SBVT_SITES}/sbvt ] && [ ! -f ${SBVT_SITES}/sbvt/tests/functional.suite.yml ]; then
         \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/sbvt/tests
-#        sed -i -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
-#        sed -i -e "s/sbvt/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
+#        sed -i '' -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
+#        sed -i '' -e "s/sbvt/${directory}/g" ${SBVT_SITES}/sbvt/tests/functional.suite.yml
     fi;
     if [ -d ${SBVT_SITES}/sbvt ] && [ ! -f ${SBVT_SITES}/sbvt/tests/acceptance.suite.yml ]; then
         \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/sbvt/tests
@@ -174,15 +174,15 @@ for project in ${!projects__projectroot*}
 
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/codeception.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/codeception.yml ${SBVT_SITES}/$directory/tests
-            sed -i -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
-            sed -i -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
-            sed -i -e "s/sbvtpass/${mysql_pass}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
+            sed -i '' -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
+            sed -i '' -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
+            sed -i '' -e "s/sbvtpass/${mysql_pass}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
 
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/functional.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/$directory/tests
-            sed -i -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
-            sed -i -e "s/sbvt/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/sbvt/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/acceptance.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/$directory/tests
