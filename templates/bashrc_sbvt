@@ -1,7 +1,5 @@
 # Useful shell aliases
 
-# All you need to do is define this path and copy this file to .bashrc
-
 PATH_TO_SB_VALET=absolute_path_to_springboard_valet
 
 # Add these to your .bashrc or .bash_alias.

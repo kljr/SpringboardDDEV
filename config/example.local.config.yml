@@ -1,13 +1,18 @@
+# Your local mySQL config.
 mysql_user: "root"
 mysql_password: "root"
-
 
 # Springboard will be cloned into springboard-valet/sites/[projectroot]
 # The site will have the hostname [projectroot].test
 # Don't use any special characters in the projectroot. Only a-z, "_", and "-" are allowed.
-projects:
-  - Description of my project
-    projectroot: "myproject"
 
-  - Description of my other project
-    projectroot: "myotherproject"
+projects:
+
+  - Springboard Valet default site.
+    projectroot: "sbvt"
+
+#  - Description of a second site
+#    projectroot: "another-site"
+
+#  - Description of a third site
+#    projectroot: "mysite"
