@@ -18,35 +18,41 @@ to /usr/local/bin/composer.
 
 # Usage
 
-Install Homebrew, or update Homebrew to the latest version using 
+1. Install Homebrew, or update Homebrew to the latest version using 
 `brew update`.
 
-Install PHP 7.1 using Homebrew via `brew install php@7.1`. Springboard is 
+2. Install PHP 7.1 using Homebrew via `brew install php@7.1`. Springboard is 
 not compatible with PHP 7.2, so you'll need to remove that if you 
 already have it linked.
 
-Install Valet with Composer via `composer global require laravel/valet`. 
+3. Install Valet with Composer via `composer global require laravel/valet`. 
 Make sure the ~/.composer/vendor/bin directory is in your system's 
 "PATH".
 
-Run the `valet install` command. This will configure and install Valet 
+4. Run the `valet install` command. This will configure and install Valet 
 and DnsMasq, and register Valet's daemon to launch when your system 
 starts.
 
-Then clone this repository.
+5. Clone this repository.
 
-Copy `example.local.config.yml` to `local.config.yml`.
-
-Run `composer install` from inside the repository folder and follow 
-the prompts.
-
+6. From the repository root folder, run `scripts/sbvt-install.sh`  
+and follow the prompts. This updates your drush and bash configuration.
 If you don't want to automatically install the shell commands and drush 
 aliases, you'll need to manually copy the files from the templates 
 directory to the correct locations.
 
+8. Run `composer install` from the repository root folder. This will
+pull down springboard into your vendor folder.
+
+7. Copy `example.local.config.yml` to `local.config.yml` and modify it to
+match your mySQL configuration and project names.
+
+9. Run `sbvt-make` (or scripts/sbvt-make.sh). Follow the prompts to 
+ install the projects you defined in the yaml config.
+
 After the initial install, if you want to create additional Springboard 
 sites, update local.config.yml with your new site info. Then 
-run `scripts/make-sbvt.sh` (alias 'sbvt-make').
+run `sbvt-make` (or scripts/make-sbvt.sh).
 
 Laravel Valet by default serves all sites with the ".test" domain. 
 Springboard Valet serves all sites at [projectroot].test. Configuring 

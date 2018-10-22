@@ -55,7 +55,7 @@ if [ -d $HOME/.drush ] && [ -f $HOME/.drush/drushrc.php ]; then
         esac
     done
 
-    if [ ${INCLUDE_SBVT_DRUSH_ALIAS} = true ]; then
+    if [[ ${INCLUDE_SBVT_DRUSH_ALIAS} = true ]]; then
         cat ${PATH_TO_SBVT}/templates/drushrc >> $HOME/.drush/drushrc.php
     fi;
 fi
