@@ -65,7 +65,8 @@ if [ -d ${SBVT_SITES}/sbvt ]; then
         sed -i '' -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/sbvt/web/sites/default/settings.php
         sed -i '' -e "s/sbvtdb/sbvt/g" ${SBVT_SITES}/sbvt/web/sites/default/settings.php
     fi;
-    default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} sbvt -e 'show tables;' | grep system) || exit 1;
+    $(mysql -u${mysql_user} -p${mysql_password} -e "exit") || exit 1;
+    default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} sbvt -e 'show tables;' | grep system);
     if [ ! $default_db_populated ]; then
         cd ${SBVT_SITES}/sbvt/web
         drush sql-create -y
@@ -154,7 +155,8 @@ for project in ${!projects__projectroot*}
             sed -i '' -e "s/'.sbvt.test'/'.${directory}.test'/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
         fi;
 
-        default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system) || exit 1;
+        $(mysql -u${mysql_user} -p${mysql_password} -e "exit") || exit 1;
+        default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system );
         if [ ! $default_db_populated ]; then
             drush sql-create -y
             gunzip < ${SBVT_SITES}/$directory/.circleci/springboard.sql.gz | drush sql-cli

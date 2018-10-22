@@ -9,7 +9,7 @@ PATH_TO_SB_VALET=absolute_path_to_springboard_valet
 #  Directory switching
 
 alias sbvt='cd $PATH_TO_SB_VALET'
-alias sbvt-make='$PATH_TO_SB_VALET/scripts/sbvt-make-sb.sh'
+alias sbvt-make='$PATH_TO_SB_VALET/scripts/sbvt-make.sh'
 alias sbvt-wipe='$PATH_TO_SB_VALET/scripts/wipe-db.sh'
 alias sbvt-wipe_clean='$PATH_TO_SB_VALET/scripts/wipe-db-clean.sh'
 alias sbvt-art='$PATH_TO_SB_VALET/scripts/artifact.sh'
@@ -133,6 +133,37 @@ function cdvl(){
     fi
 }
 # example: "cdvl sbvt" - switch to libraries directory of the sbvt install
+
+function sbvt-prep(){
+    if [ $# -eq 0 ]; then
+        f=${#PATH_TO_SB_VALET}
+        g=${PWD:0:$f+7}
+        h=${PWD:$f+7}
+        l=$PWD
+        i=$(strpos $h '/')
+        if [ -z $i ]; then
+            dir=$PWD
+            site=$h
+        else
+            j=${h:0:$i}
+            site=$j
+        fi
+        if [ -d $dir ]; then
+           cd $dir/web
+           drush sbvt-prep
+           cd $dir
+        else
+            echo "Can't find that directory"
+        fi
+    else
+       if [ -d ${PATH_TO_SB_VALET}/sites/$1/web ]; then
+          cd ${PATH_TO_SB_VALET}/sites/$1/web
+          drush sbvt-prep
+       else
+         echo "Can't find that directory"
+       fi
+   fi
+}
 
 function strpos()
 {
