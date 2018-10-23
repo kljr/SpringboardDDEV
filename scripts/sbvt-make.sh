@@ -76,7 +76,7 @@ for project in ${!projects__projectroot*}
         if [[ ! $default_db_populated ]]; then
             drush sql-create -y
             gunzip < ${SBVT_SITES}/$directory/.circleci/springboard.sql.gz | drush sql-cli
-            drush vset encrypt_secure_key_path ${SBVT_SITES}/$directory/sites/default/files/
+            drush vset encrypt_secure_key_path $HOME/.config/valet/Sites/$directory/sites/default/files/
             drush upwd admin --password=admin -y
         fi;
         # Create a sustainer.key file in sites/default/files
@@ -92,13 +92,13 @@ for project in ${!projects__projectroot*}
             \cp ${PATH_TO_SBVT}/templates/codeception/codeception.yml ${SBVT_SITES}/$directory/tests
             sed -i '' -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
             sed -i '' -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
-            sed -i '' -e "s/sbvtpass/${mysql_pass}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
+            sed -i '' -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/$directory/tests/codeception.yml
 
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/functional.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/$directory/tests
-            sed -i '' -e "s/sbvt\.test/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
-            sed -i '' -e "s/sbvt/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/sbvt\.test/${directory}\.test/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/sbvt-sbvt/sbvt-${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/acceptance.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/$directory/tests

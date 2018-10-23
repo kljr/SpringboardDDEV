@@ -14,6 +14,6 @@ drush  sql-drop -y
 gunzip < ${PATH_TO_SBVT}/sites/${dir}/.circleci/springboard.sql.gz | drush sql-cli
 drush updb -y
 drush upwd admin --password=admin -y
-drush vset encrypt_secure_key_path ${PATH_TO_SBVT}/sites/${dir}/web/sites/default/files/
+drush vset encrypt_secure_key_path $HOME/.config/valet/Sites/$dir/sites/default/files/
 drush cc all
 chmod 775 ${PATH_TO_SBVT}/sites/${dir}/web/sites/default

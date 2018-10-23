@@ -14,10 +14,10 @@ modules:
             window_size: 'maximize'
     config:
         MailHog:
-            url: 'http://sbvt.test'
+            url: 'http://127.0.0.1'
             port: '8025'
 paths:
     envs: tests/_envs
 groups:
     paracept_group_*: tests/_output/paracept_group_*
-drush-command: drush @sbvt %command
+drush-command: drush @sbvt-sbvt %command

@@ -15,7 +15,7 @@ foreach ($dirs as $alias) {
   if (file_exists($dir) && is_dir($dir)) {
     $aliases['sbvt-' . $alias] = array(
       'uri' => $alias . '.test',
-      'root' => $path . '/sites/' . $alias . '/web',
+      'root' => $path . '/' . $alias . '/web',
       'path-aliases' => array(
         '%drush-script' => '/usr/local/bin/drush',
       ),
