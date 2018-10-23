@@ -124,13 +124,40 @@ function cdvl(){
         fi
     else
         if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
-            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/librarires
+            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/libraries
         else
             echo "Can't find that directory"
         fi
     fi
 }
-# example: "cdvl sbvt" - switch to libraries directory of the sbvt install
+
+# Switch to libraries dir.
+function cdvw(){
+    if [ $# -eq 0 ]; then
+        f=${#PATH_TO_SB_VALET}
+        g=${PWD:0:$f+7}
+        h=${PWD:$f+7}
+        i=$(strpos $h '/')
+        if [ -z $i ]; then
+            dir=$PWD/web
+        else
+			j=${h:0:$i}
+        	dir=$g$j/web
+        fi
+        if [ -d $dir ]; then
+            cd $dir
+            echo "you're in" $dir
+        else
+            echo "Can't find that directory"
+        fi
+    else
+        if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_VALET/sites/$1/web
+        else
+            echo "Can't find that directory"
+        fi
+    fi
+}
 
 function sbvt-prep(){
     if [ $# -eq 0 ]; then

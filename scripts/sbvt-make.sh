@@ -73,7 +73,7 @@ for project in ${!projects__projectroot*}
 
         $(mysql -u${mysql_user} -p${mysql_password} -e "exit") || exit 1;
         default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system );
-        if [ ! $default_db_populated ]; then
+        if [[ ! $default_db_populated ]]; then
             drush sql-create -y
             gunzip < ${SBVT_SITES}/$directory/.circleci/springboard.sql.gz | drush sql-cli
             drush vset encrypt_secure_key_path ${SBVT_SITES}/$directory/sites/default/files/
