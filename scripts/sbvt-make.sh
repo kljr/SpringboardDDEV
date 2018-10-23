@@ -104,6 +104,6 @@ for project in ${!projects__projectroot*}
             \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/$directory/tests
         fi;
         if [ ! -d ~/.config/valet/Sites/$directory ]; then
-          ln -s ${SBVT_SITES}/$directory/web ~/.config/valet/Sites/$directory
+          ln -s ${SBVT_SITES}/$directory ~/.config/valet/Sites/$directory
         fi;
     done

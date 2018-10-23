@@ -60,3 +60,6 @@ if [ -d $HOME/.drush ] && [ -f $HOME/.drush/drushrc.php ]; then
     fi;
 fi
 
+if [ -d $HOME/.config/valet ] && [ ! -f $HOME/.config/valet/Drivers/SpringboardValetDriver.php ]; then
+    cp ${PATH_TO_SBVT}/templates/SpringboardValetDriver.php $HOME/.config/valet/Drivers/SpringboardValetDriver.php
+fi
