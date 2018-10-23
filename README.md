@@ -79,8 +79,8 @@ a reference site db and file assets.
 * Configures encrypt and sustainer keys to QA master defaults.
 * Provides shell aliases and functions to quickly navigate the directory
 hierarchy and perform commandline tasks.
-* Creates Drush aliases which match your project_root folder name:
-`drush @sbvt-`[`project_root_folder_name`].
+* Creates Drush aliases which match your project folder name:
+`drush @sbvt-`[`project_folder_name`].
 
 ## Useful shell aliases and functions
 
@@ -108,7 +108,7 @@ work without arguments.
 * `sbvt-make` - create new springboard site installations based on 
 local.config.yml settings. The command will prompt you for the 
 springboard version.
-* `sbvt-prep [project_root_folder_name]` - Installs admin_menu, 
+* `sbvt-prep [project_folder_name]` - Installs admin_menu, 
 admin_menu_toolbar, devel, views_ui, module_filter, token_filter, and springboard_token
 modules. Turns off caches and aggregations, and configures devel error 
 settings. When executed from inside a project folder hierarchy, the 
