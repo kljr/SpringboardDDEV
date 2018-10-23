@@ -73,12 +73,12 @@ Springboard Valet serves all sites at [projectroot].test. Configuring
 * Downloads Springboard-Composer and its vendor dependencies.
 * Creates and manages multiple virtual hosts and site databases.
 * Configures the codeception tests to work out of the box.
-* Automates replacing generic site databases and file assets with
-reference site assets.
-* Configures encrypt and sustainer keys.
-* Automates replacing any site database with a fresh copy of QA master.
+* Automates replacing a site's database with a fresh copy of QA master.
+* Automates replacing a site's database and file assets with
+a reference site db and file assets.
+* Configures encrypt and sustainer keys to QA master defaults.
 * Provides shell aliases and functions to quickly navigate the directory
-hierarchy and perform tasks.
+hierarchy and perform commandline tasks.
 * Creates Drush aliases which match your project_root folder name:
 `drush @sbvt-`[`project_root_folder_name`].
 
@@ -89,17 +89,19 @@ and bash aliases to project management.
 
 > Directory switching
 
-* `sbvt` - Go to Springboard Valet install directory.
-* `cdv [project_root_folder_name/path]` - switch to project_root_folder_name or any path in a 
-project_root_folder_name.
-* `cdw [project_root_folder_name]` - switch to the web directory of project_root_folder_name.
-* `cdvm [project_root_folder_name]` - switch to the Springboard modules directory 
-of site.
-* `cdvt [project_root_folder_name]` - switch to the Springboard themes directory 
-of site.
-* `cdvl [project_root_folder_name]` - switch to the libraries directory of site.
-* If you're already in a site directory context, the above commands will
+* `sbvt` - Go to the Springboard Valet directory.
+* `cdv [project_folder_name/path]` - switch to a project root folder or any path in a 
+project.
+* `cdvw [project_folder_name]` - switch to the web directory of the project.
+* `cdvm [project_folder_name]` - switch to the Springboard modules directory 
+of the project.
+* `cdvt [project_folder_name]` - switch to the Springboard themes directory 
+of the project.
+* `cdvl [project_folder_name]` - switch to the libraries directory of the project.
+
+    If the command prompt is already in a project hierarchy, the above commands will
 work without arguments.
+
 
 >  Managing sites
 
