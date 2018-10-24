@@ -18,12 +18,7 @@
         }
     ],
     "require": {
-        "composer/installers": "^1.0.20",
-        "mnsami/composer-custom-directory-installer": "1.1.*",
         "jacksonriver/springboard-composer": "dev-develop"
-    },
-    "require-dev": {
-        "composer/installers": "~1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
