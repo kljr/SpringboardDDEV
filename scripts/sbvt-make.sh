@@ -72,7 +72,7 @@ for project in ${!projects__projectroot*}
         fi;
 
         $(mysql -u${mysql_user} -p${mysql_password} -e "exit") || exit 1;
-        default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system );
+        default_db_populated=$(mysql -u${mysql_user} -p${mysql_password} $directory -e 'show tables;' | grep system || 2> /dev/null ) ;
         if [[ ! $default_db_populated ]]; then
             drush sql-create -y
             gunzip < ${SBVT_SITES}/$directory/.circleci/springboard.sql.gz | drush sql-cli
