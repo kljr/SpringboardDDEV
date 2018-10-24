@@ -76,17 +76,17 @@ for project in ${!projects__projectroot*}
         if [[ ! $default_db_populated ]]; then
             drush sql-create -y
             gunzip < ${SBVT_SITES}/$directory/.circleci/springboard.sql.gz | drush sql-cli
-            drush vset encrypt_secure_key_path $HOME/.config/valet/Sites/$directory/sites/default/files/
+            drush vset encrypt_secure_key_path $HOME/.config/valet/Sites/$directory/web/sites/default/files/
             drush upwd admin --password=admin -y
         fi;
         # Create a sustainer.key file in sites/default/files
         if [ ! -f ${SBVT_SITES}/$directory/sites/default/files ]; then
-            mkdir -p ${SBVT_SITES}/$directory/sites/default/files
+            mkdir -p ${SBVT_SITES}/$directory/web/sites/default/files
         fi
         if [ ! -e ${SBVT_SITES}/$directory/sites/default/files/sustainer.key ]; then
-          echo $directory.test > ${SBVT_SITES}/sbvt/sites/default/files/sustainer.key
+          echo $directory.test > ${SBVT_SITES}/$directory/web/sites/default/files/sustainer.key
         fi
-        echo "23fe4ba7660eba65c8634fd41e18f2300eb2a1bcbbc6e81f1bde82448016890" > ${SBVT_SITES}/$directory/sites/default/files/encrypt_key.key
+        echo "23fe4ba7660eba65c8634fd41e18f2300eb2a1bcbbc6e81f1bde82448016890" > ${SBVT_SITES}/$directory/web/sites/default/files/encrypt_key.key
 
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/codeception.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/codeception.yml ${SBVT_SITES}/$directory/tests

@@ -182,8 +182,10 @@ function sbvt-prep(){
         fi
     else
        if [ -d ${PATH_TO_SB_VALET}/sites/$1/web ]; then
+          current=$PWD;
           cd ${PATH_TO_SB_VALET}/sites/$1/web
           drush sbvt-prep
+          cd $current
        else
          echo "Can't find that directory"
        fi

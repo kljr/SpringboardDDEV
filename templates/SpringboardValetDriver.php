@@ -12,12 +12,12 @@ class SpringboardValetDriver extends ValetDriver
      */
     public function serves($sitePath, $siteName, $uri)
     {
-      /**
-       * /misc/drupal.js = Drupal 7
-       * /core/lib/Drupal.php = Drupal 8
-       */
-       
-	      if (file_exists($sitePath.'/springboard_modules') &&
+        /**
+         * /misc/drupal.js = Drupal 7
+         * /core/lib/Drupal.php = Drupal 8
+         */
+
+        if (file_exists($sitePath.'/springboard_modules') &&
           file_exists($sitePath.'/web')) {
             return true;
         }
@@ -32,16 +32,16 @@ class SpringboardValetDriver extends ValetDriver
      * @return string|false
      */
     public function isStaticFile($sitePath, $siteName, $uri)
-    
+
     {
-    
+
         if (strpos($uri, '/web/') === FALSE) {
             $sitePath = $sitePath . '/web';
         }
 
         if (file_exists($sitePath.$uri) &&
-            ! is_dir($sitePath.$uri) &&
-            pathinfo($sitePath.$uri)['extension'] != 'php') {
+          ! is_dir($sitePath.$uri) &&
+          pathinfo($sitePath.$uri)['extension'] != 'php') {
             return $sitePath.$uri;
         }
 
@@ -58,17 +58,27 @@ class SpringboardValetDriver extends ValetDriver
      */
     public function frontControllerPath($sitePath, $siteName, $uri)
     {
-        if (!isset($_GET['q']) && !empty($uri) && $uri !== '/') {
-          $_GET['q'] = $uri;
+        if (strpos($uri, '/js') === 0 || strpos($uri, '/web/js') === 0) {
+            $index = 'js.php';
+        } else {
+            $index ='index.php';
         }
-            
+
+        if (!isset($_GET['q']) && !empty($uri) && $uri !== '/') {
+            $_GET['q'] = $uri;
+        }
+
         if (strpos($uri, '/web/') === FALSE) {
             $sitePath = $sitePath . '/web/';
         }
-        
+
         $matches = [];
         if (preg_match('/^\/(.*?)\.php/', $uri, $matches)) {
             $filename = $matches[0];
+            if (strpos($uri, '/js') === 0 && $filename == 'index.php') {
+                $filename = 'js.php';
+            }
+
             if (file_exists($sitePath.$filename) && ! is_dir($sitePath.'/web'.$filename)) {
                 $_SERVER['SCRIPT_FILENAME'] = $sitePath.$filename;
                 $_SERVER['SCRIPT_NAME'] = $filename;
@@ -77,8 +87,8 @@ class SpringboardValetDriver extends ValetDriver
         }
 
         // Fallback
-        $_SERVER['SCRIPT_FILENAME'] = $sitePath.'index.php';
-        $_SERVER['SCRIPT_NAME'] = '/index.php';
-        return $sitePath.'index.php';
+        $_SERVER['SCRIPT_FILENAME'] = $sitePath.$index;
+        $_SERVER['SCRIPT_NAME'] = '/'. $index;
+        return $sitePath.$index;
     }
 }
