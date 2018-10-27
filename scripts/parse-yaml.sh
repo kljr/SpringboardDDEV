@@ -16,7 +16,8 @@ function parse_yaml {
                 split($3, dirname, "/")
                 if (dirname[1] != "") {
                     cleaned = dirname[1]
-                    printf("%s%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, "__"gsub(/\-/,"_",cleaned), dirname[1]);
+                    gsub(/\-/,"_",cleaned)
+                    printf("%s%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, "__"cleaned, dirname[1]);
                 }
             }
             else {
