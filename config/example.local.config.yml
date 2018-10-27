@@ -2,10 +2,17 @@
 mysql_user: "root"
 mysql_password: "root"
 
+# A short string to ensure your automatically generated Springboard Valet
+# aliases don't conflict with existing drush aliases.
+drush_alias_prefix: "sbvt-"
+
+# Valet uses the domain ".test" by default. If you have it set
+# to a different value, change this setting to match it.
+valet_domain: "test"
+
 # Springboard will be cloned into springboard-valet/sites/[projectroot]
 # The site will have the hostname [projectroot].test
 # Don't use any special characters in the projectroot. Only a-z, "_", and "-" are allowed.
-
 projects:
 
   - Springboard Valet default site.

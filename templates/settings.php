@@ -644,7 +644,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  */
 # $conf['allow_css_double_underscores'] = TRUE;
 
-$conf['market_source_cookie_domain'] = '.sbvt.test';
+$conf['market_source_cookie_domain'] = '.sbvt.valet_domain';
 //$conf['file_private_path'] = $conf['encrypt_secure_key_path'] = '/var/www/private-files';
 
 // Support for setting a custom ip address.

@@ -9,7 +9,7 @@ modules:
         - Cli
         - \Helper\Functional
         - WebDriver:
-            url: http://sbvt.test
+            url: http://sbvt.valet_domain
             browser: phantomjs
             window_size: 'maximize'
     config:
