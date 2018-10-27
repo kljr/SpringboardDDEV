@@ -19,6 +19,7 @@ eval $(parse_yaml ${LOCAL_CONFIG_FILE})
 if [ ! -d ${PATH_TO_SBVT}/sites ]; then
     mkdir ${PATH_TO_SBVT}/sites
 fi;
+#( set -o posix ; set ) | more
 
 for project in ${!projects__projectroot*}
     do
@@ -33,7 +34,9 @@ for project in ${!projects__projectroot*}
             [ -z "${repo}" ] && repo='springboard-composer'
             if [ $repo = 'springboard-composer' ]; then
                 if [ -d ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer ]; then
-                    cp -R ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer sites/$directory
+                    cd ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer
+                    git pull
+                    cp -R ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer ${PATH_TO_SBVT}/sites/$directory
                 fi;
             else
                 git clone git@github.com:JacksonRiver/$repo.git ${PATH_TO_SBVT}/sites/$directory
@@ -42,20 +45,19 @@ for project in ${!projects__projectroot*}
             cd ${PATH_TO_SBVT}/sites/$directory;
             read -p "Branch name? (default: develop): " branch
             [ -z "${branch}" ] && branch='develop'
-            git pull
             git checkout $branch
             git pull
             $HOME/composer.phar about 2> /dev/null
             if [ $? -eq 0 ]; then
-                $HOME/composer.phar run-script dev-install
+                $HOME/composer.phar run-script dev-update
                 else
                     $HOME/composer about 2> /dev/null
                     if [ $? -eq 0 ]; then
-                        $HOME/composer run-script dev-install
+                        $HOME/composer run-script dev-update
                     else
                         /usr/local/bin/composer about 2> /dev/null
                         if [ $? -eq 0 ]; then
-                            /usr/local/bin/composer run-script dev-install
+                            /usr/local/bin/composer run-script dev-update
                         else
                             echo "Could not find composer"
                     fi;
@@ -68,7 +70,7 @@ for project in ${!projects__projectroot*}
             sed -i '' -e "s/sbvtuser/${mysql_user}/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
             sed -i '' -e "s/sbvtpass/${mysql_password}/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
             sed -i '' -e "s/sbvtdb/${directory}/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
-            sed -i '' -e "s/'.sbvt.test'/'.${directory}.test'/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
+            sed -i '' -e "s/'.sbvt.valet_domain'/'.${directory}.${valet_domain}'/g" ${SBVT_SITES}/$directory/web/sites/default/settings.php
         fi;
 
         $(mysql -u${mysql_user} -p${mysql_password} -e "exit") || exit 1;
@@ -84,7 +86,7 @@ for project in ${!projects__projectroot*}
             mkdir -p ${SBVT_SITES}/$directory/web/sites/default/files
         fi
         if [ ! -e ${SBVT_SITES}/$directory/sites/default/files/sustainer.key ]; then
-          echo $directory.test > ${SBVT_SITES}/$directory/web/sites/default/files/sustainer.key
+          echo $directory.${valet_domain} > ${SBVT_SITES}/$directory/web/sites/default/files/sustainer.key
         fi
         echo "23fe4ba7660eba65c8634fd41e18f2300eb2a1bcbbc6e81f1bde82448016890" > ${SBVT_SITES}/$directory/web/sites/default/files/encrypt_key.key
 
@@ -97,7 +99,7 @@ for project in ${!projects__projectroot*}
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/functional.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/$directory/tests
-            sed -i '' -e "s/sbvt\.test/${directory}\.test/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/sbvt\.valet_domain/${directory}\.${valet_domain}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
             sed -i '' -e "s/sbvt-sbvt/sbvt-${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/acceptance.suite.yml ]; then

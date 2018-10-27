@@ -26,5 +26,10 @@
     },
     "config": {
       "preferred-install": "source"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "scripts/post-install.sh"
+        ]
     }
 }

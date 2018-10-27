@@ -41,6 +41,8 @@ if [ -d $HOME/.drush ] && [ ! -f $HOME/.drush/sbvt.aliases.drushrc.php ]; then
 
     if [ ${INCLUDE_SBVT_DRUSH} = true ]; then
         cp ${PATH_TO_SBVT}/templates/sbvt.aliases.drushrc.php $HOME/.drush/sbvt.aliases.drushrc.php
+        sed -i '' -e "s|valet_domain|${valet_domain}|g"  $HOME/.drush/sbvt.aliases.drushrc.php
+        sed -i '' -e "s|drush_alias_prefix|${drush_alias_prefix}|g"  $HOME/.drush/sbvt.aliases.drushrc.php
         sed -i '' -e "s|absolute_path_to_springboard_valet_sites_directory|${PATH_TO_SBVT}/sites|g"  $HOME/.drush/sbvt.aliases.drushrc.php
     fi;
 fi
@@ -63,3 +65,22 @@ fi
 if [ -d $HOME/.config/valet ] && [ ! -f $HOME/.config/valet/Drivers/SpringboardValetDriver.php ]; then
     cp ${PATH_TO_SBVT}/templates/SpringboardValetDriver.php $HOME/.config/valet/Drivers/SpringboardValetDriver.php
 fi
+
+cd ${PATH_TO_SBVT}
+$HOME/composer.phar about 2> /dev/null
+if [ $? -eq 0 ]; then
+    $HOME/composer.phar install
+    else
+        $HOME/composer about 2> /dev/null
+        if [ $? -eq 0 ]; then
+            $HOME/composer install
+        else
+            /usr/local/bin/composer about 2> /dev/null
+            if [ $? -eq 0 ]; then
+                /usr/local/bin/composer install
+            else
+                echo "Could not find composer"
+        fi;
+    fi;
+fi;
+
