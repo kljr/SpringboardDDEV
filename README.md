@@ -1,7 +1,7 @@
 # Springboard Valet
 
-A Springboard development environment built with Composer, Laravel Valet,
- Codeception and Bash.
+A Springboard development environment built with Laravel Valet,
+ Composer, Codeception and Bash.
 
 Provides multiple fully-configured Springboard sites - each with working 
 copies of the Springboard repositories - and quick, pain-free 
@@ -37,25 +37,25 @@ Make sure the ~/.composer/vendor/bin directory is in your system's
 and DnsMasq, and register Valet's daemon to launch when your system 
 starts.
 
-6. Clone this repository, then, from the repository root folder, 
-run `scripts/sbvt-install.sh`  and follow the prompts. 
-This script updates your drush and bash 
-configuration after you confirm the changes. 
+6. Clone this repository. Copy `example.local.config.yml` 
+to `local.config.yml` and modify it to
+match your mySQL configuration. Define projects following the example
+project definitions.
 
-    You can review the changes by looking at the files in the /templates 
+7. From the Springboard Valet root folder, run `scripts/sbvt-install.sh` 
+ and follow the prompts. This script runs composer install,
+ and updates your drush and bash configuration after you 
+ confirm the proposed changes. 
+
+ You can review the changes by looking at the files in the /templates 
 directory: bashrc_sbvt, bash_profile_sbvt, sbvt.aliases.drushrc.php 
 and drushrc.
 
-    If you don't want to automatically install the shell 
+ If you don't want to automatically install the shell 
 commands and drush aliases, you'll need to manually copy the files 
 from the templates directory to the correct locations.
 
-8. Run `composer install` from the Springboard Valet root folder. This will
-pull down Springboard-Composer into your vendor folder.
-
-7. Copy `example.local.config.yml` to `local.config.yml` and modify it to
-match your mySQL configuration. Define a project following the example
-project definitions, then run `sbvt-make` 
+7. Now you're ready to create Springboard instances. Run `sbvt-make` 
 (or scripts/sbvt-make.sh). Follow the prompts to install the projects 
 you defined in the yaml config.
 
@@ -84,8 +84,8 @@ hierarchy and perform commandline tasks.
 
 ## Useful shell aliases and functions
 
-The install script activates custom shell commands, drush shell aliases,
-and bash aliases to project management.
+The install script creates custom shell commands, drush shell aliases,
+and bash aliases to ease project management.
 
 > Directory switching
 
@@ -131,14 +131,6 @@ If you want to add a new site to Springboard Valet, then you need to:
 
 Adding too many sites at once can cause PHP timeouts, so be reasonable.
 
-## Updating existing Springboard sites
-
-Updating sites is easy with springboard-composer, and not covered 
-here, but if you want to replace all code in a site and re-create it, 
-just delete the site root folder, and run `sbvt-make`.  If you delete
-the database prior to that, it will be recreated, otherwise the same
-db will be used.
-
 ## Replacing default content with reference databases and files
 
 If you place gzipped files and dbs in the `artifacts/sites` folder 
@@ -154,18 +146,30 @@ should be ready to go.
 
 Some tests use mailhog to test email functions - you'll want to install
  mailhog using homebrew:
+ 
  * `brew update && brew install mailhog`
  * `brew services start mailhog`
  * Access mailhog at http://127.0.0.1:8025.
 
-To start tests, move into the tests directory and then
+You may have to configure Postfix to send mail locally. See instructions [here](https://www.joshstauffer.com/send-test-emails-on-a-mac-with-mailhog/).
+Alternatively, you can install [Mailhog Sendmail.](https://jonchristopher.us/blog/mylocaldev-part-3-mailhog-mhsendmail-os-x/).
+
+
+To start tests, move into a project root directory and then
  `vendor/bin/codecept run`
  
 To wipe and reload the db:
 
 * To use the QA master db: `sbvt-wipe` (scripts/wipe-test-db.sh)
-* To use make a clean springboard db: `sbvt-wipe-clean` (scripts/wipe-test-db-clean.sh) 
+* To use a clean springboard db: `sbvt-wipe-clean` (scripts/wipe-test-db-clean.sh) 
 * To use any other db, follow the instruction for loading artifacts.
+
+## Updating existing Springboard sites
+
+If you want to replace all code in a site and re-create it, 
+just delete the site root folder, and run `sbvt-make`.  If you delete
+the database prior to that, it will be recreated, otherwise the same
+db will be used.
 
 ## Drush global install
 
