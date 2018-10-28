@@ -12,9 +12,22 @@ PATH_TO_SBVT=${PWD:0:${#PWD} - 8}
 SBVT_SITES=${PATH_TO_SBVT}/sites
 export PATH=$PWD:$PATH
 
-if [ -f $HOME/.bash_profile ] && [ ! -f $HOME/.bashrc_sbvt ]; then
+profiletype="none"
+if [ -f $HOME/.bash_profile ]; then
+    profiletype="bash_profile"
+    else
+        if [ -f $HOME/.bash_login ]; then
+            profiletype="bash_login"
+            else
+                if [ -f $HOME/.profile ]; then
+                    profiletype="profile"
 
-    echo "Do you wish to update .bash_profile with an include for Springboard Valet's shell commands?"
+        fi;
+    fi;
+fi;
+
+if [ ! -f $HOME/.bashrc_sbvt ] && [ "$profiletype" != "none" ]; then
+    echo "Do you wish to update .$profiletype with an include for Springboard Valet's shell commands?"
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) INCLUDE_SBVT=true; break;;
@@ -25,7 +38,8 @@ if [ -f $HOME/.bash_profile ] && [ ! -f $HOME/.bashrc_sbvt ]; then
     if [ ${INCLUDE_SBVT} = true ]; then
         cp ${PATH_TO_SBVT}/templates/bashrc_sbvt $HOME/.bashrc_sbvt
         sed -i '' -e "s|absolute_path_to_springboard_valet|${PATH_TO_SBVT}|g"  $HOME/.bashrc_sbvt
-        cat ${PATH_TO_SBVT}/templates/bash_profile_sbvt >> $HOME/.bash_profile
+        cat ${PATH_TO_SBVT}/templates/bash_profile_sbvt >> $HOME/.$profiletype
+        source ~/.bash_profile
     fi;
 fi
 
@@ -49,16 +63,20 @@ fi
 
 if [ -d $HOME/.drush ] && [ -f $HOME/.drush/drushrc.php ]; then
 
-    echo "Do you wish to update drushrc.php with Springboard Valet's drush shell commands?"
-    select yn in "Yes" "No"; do
-        case $yn in
-            Yes ) INCLUDE_SBVT_DRUSH_ALIAS=true; break;;
-            No ) INCLUDE_SBVT_DRUSH_ALIAS=false; break;;
-        esac
-    done
+    if [ ! -f $HOME/.config/springboard-valet/drushrc.updated ]; then
+        echo "Do you wish to update drushrc.php with Springboard Valet's drush shell commands?"
+        select yn in "Yes" "No"; do
+            case $yn in
+                Yes ) INCLUDE_SBVT_DRUSH_ALIAS=true; break;;
+                No ) INCLUDE_SBVT_DRUSH_ALIAS=false; break;;
+            esac
+        done
 
-    if [[ ${INCLUDE_SBVT_DRUSH_ALIAS} = true ]]; then
-        cat ${PATH_TO_SBVT}/templates/drushrc >> $HOME/.drush/drushrc.php
+        if [[ ${INCLUDE_SBVT_DRUSH_ALIAS} = true ]]; then
+            cat ${PATH_TO_SBVT}/templates/drushrc >> $HOME/.drush/drushrc.php
+            mkdir $HOME/.config/springboard-valet
+            touch $HOME/.config/springboard-valet/drushrc.updated
+        fi;
     fi;
 fi
 

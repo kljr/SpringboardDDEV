@@ -100,7 +100,8 @@ for project in ${!projects__projectroot*}
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/functional.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/functional.suite.yml ${SBVT_SITES}/$directory/tests
             sed -i '' -e "s/sbvt\.valet_domain/${directory}\.${valet_domain}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
-            sed -i '' -e "s/sbvt-sbvt/sbvt-${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/drush_alias_prefix/${drush_alias_prefix}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
+            sed -i '' -e "s/__sbvtroot/${directory}/g" ${SBVT_SITES}/$directory/tests/functional.suite.yml
         fi;
         if [ -d ${SBVT_SITES}/$directory ] && [ ! -f ${SBVT_SITES}/$directory/tests/acceptance.suite.yml ]; then
             \cp ${PATH_TO_SBVT}/templates/codeception/acceptance.suite.yml ${SBVT_SITES}/$directory/tests

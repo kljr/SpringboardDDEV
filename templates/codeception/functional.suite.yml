@@ -20,4 +20,4 @@ paths:
     envs: tests/_envs
 groups:
     paracept_group_*: tests/_output/paracept_group_*
-drush-command: drush @sbvt-sbvt %command
+drush-command: drush @drush_alias_prefix__sbvtroot %command

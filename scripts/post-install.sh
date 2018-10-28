@@ -27,3 +27,5 @@ if [ $? -eq 0 ]; then
     fi;
 fi;
 
+printf "\n\n Springboard Valet is installed.\n\n"
+printf "Run the \"sbvt-make\" command to install Springboard.\n\n"
