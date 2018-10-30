@@ -53,7 +53,7 @@ if [ ${FILES} = true ]; then
             done
         fi
 
-        if [ -d $docpath/sites/default ]  && [ ${FILES} = true ]; then
+        if [ -d $docpath/web/sites/default ]  && [ ${FILES} = true ]; then
               echo "moving files"
               sudo mv ${PATH_TO_SBVT}/artifacts/sites/$artifact/files $docpath/web/sites/default
               echo "files moved"
