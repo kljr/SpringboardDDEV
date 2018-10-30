@@ -28,6 +28,7 @@ fi;
 
 if [ ! -f $HOME/.bashrc_sbvt ] && [ "$profiletype" != "none" ]; then
     echo "Do you wish to update .$profiletype with an include for Springboard Valet's shell commands?"
+    INCLUDE_SBVT=true
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) INCLUDE_SBVT=true; break;;
@@ -46,6 +47,7 @@ fi
 if [ -d $HOME/.drush ] && [ ! -f $HOME/.drush/sbvt.aliases.drushrc.php ]; then
 
     echo "Do you wish to copy Springboard Valet's drush aliases to your $HOME/.drush folder?"
+    INCLUDE_SBVT_DRUSH=true
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) INCLUDE_SBVT_DRUSH=true; break;;
@@ -65,6 +67,7 @@ if [ -d $HOME/.drush ] && [ -f $HOME/.drush/drushrc.php ]; then
 
     if [ ! -f $HOME/.config/springboard-valet/drushrc.updated ]; then
         echo "Do you wish to update drushrc.php with Springboard Valet's drush shell commands?"
+        INCLUDE_SBVT_DRUSH_ALIAS=true
         select yn in "Yes" "No"; do
             case $yn in
                 Yes ) INCLUDE_SBVT_DRUSH_ALIAS=true; break;;
@@ -85,20 +88,21 @@ if [ -d $HOME/.config/valet ] && [ ! -f $HOME/.config/valet/Drivers/SpringboardV
 fi
 
 cd ${PATH_TO_SBVT}
-$HOME/composer.phar about 2> /dev/null
-if [ $? -eq 0 ]; then
-    $HOME/composer.phar install
-    else
-        $HOME/composer about 2> /dev/null
-        if [ $? -eq 0 ]; then
-            $HOME/composer install
+if [ ! -d ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer ]; then
+    $HOME/composer.phar about 2> /dev/null
+    if [ $? -eq 0 ]; then
+        $HOME/composer.phar install
         else
-            /usr/local/bin/composer about 2> /dev/null
+            $HOME/composer about 2> /dev/null
             if [ $? -eq 0 ]; then
-                /usr/local/bin/composer install
+                $HOME/composer install
             else
-                echo "Could not find composer"
+                /usr/local/bin/composer about 2> /dev/null
+                if [ $? -eq 0 ]; then
+                    /usr/local/bin/composer install
+                else
+                    echo "Could not find composer"
+            fi;
         fi;
     fi;
 fi;
-

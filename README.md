@@ -18,6 +18,8 @@ to /usr/local/bin/composer.
 
 # Usage
 
+#### Set up Homebrew and Laravel Valet
+
 1. Install Homebrew, or update Homebrew to the latest version using 
 `brew update`.
 
@@ -37,23 +39,38 @@ Make sure the ~/.composer/vendor/bin directory is in your system's
 and DnsMasq, and register Valet's daemon to launch when your system 
 starts.
 
+#### Set up Springboard Valet
+
 6. Clone this repository. Copy `example.local.config.yml` 
 to `local.config.yml` and modify it to
 match your mySQL configuration. Define projects following the example
-project definitions.
+project definitions. 
 
-7. From the Springboard Valet root folder, run `scripts/sbvt-install.sh` 
+  Laravel Valet by default serves all sites with the ".test" domain. 
+  Springboard Valet by default serves all sites at [projectroot].test. 
+  You can configure Springboard Valet to serve from an alternate domain
+  if Valet is using one. Don't change this value after Springboard Valet 
+  has been installed. 
+
+7. There are two ways to install Springboard Valet:
+ 
+ * __Interactive install__: from the Springboard Valet root directory
+ run `scripts/sbvt-install.sh` 
  and follow the prompts. This script runs composer install,
  and updates your drush and bash configuration after you 
  confirm the proposed changes. 
-
- You can review the changes by looking at the files in the /templates 
+ 
+      You can review the changes by looking at the files in the /templates 
 directory: bashrc_sbvt, bash_profile_sbvt, sbvt.aliases.drushrc.php 
 and drushrc.
 
- If you don't want to automatically install the shell 
+      If you don't want to automatically install the shell 
 commands and drush aliases, you'll need to manually copy the files 
 from the templates directory to the correct locations.
+
+ * __Non-interactive install__: from the Springboard Valet root directory run 
+ `composer install` This will update your drush and 
+ bash configuration without asking. 
 
 7. Now you're ready to create Springboard instances. Run `sbvt-make` 
 (or scripts/sbvt-make.sh). Follow the prompts to install the projects 
@@ -62,11 +79,6 @@ you defined in the yaml config.
 After the initial install, if you want to create additional Springboard 
 sites, update local.config.yml with your new project info. Then 
 run `sbvt-make` (or scripts/make-sbvt.sh).
-
-Laravel Valet by default serves all sites with the ".test" domain. 
-Springboard Valet serves all sites at [projectroot].test. Configuring 
- Valet to serve a different top-level domain will break integration
- with Springboard Valet.
  
 ## What does Springboard Valet do?
 
@@ -170,6 +182,15 @@ If you want to replace all code in a site and re-create it,
 just delete the site root folder, and run `sbvt-make`.  If you delete
 the database prior to that, it will be recreated, otherwise the same
 db will be used.
+
+## Uninstalling Springboard Valet
+
+* Delete the springboard-valet directory
+* Remove the bashrc_sbvt include lines from your .profile, .login_profile or
+.bash_profile file.
+* Delete ~/.bashrc_sbvt
+* Remove the sbvt custom shell commands from ~/.drush/drushrc.php
+* Delete ~/.drush/sbvt.aliases.drushrc.php
 
 ## Drush global install
 
