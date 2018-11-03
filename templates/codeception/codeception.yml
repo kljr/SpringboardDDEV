@@ -1,8 +1,0 @@
-modules:
-    config:
-        Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=sbvtdb;port=3334'
-            user: 'sbvtuser'
-            password: 'sbvtpass'
-            populate: true
-            cleanup: true

@@ -6,7 +6,7 @@
  * @see example.aliases.drushrc.php.
  */
 
-$path = 'absolute_path_to_springboard_valet_sites_directory';
+$path = 'absolute_path_to_springboard_ddev_sites_directory';
 
 $dirs = array_diff(scandir($path), array('..', '.'));
 

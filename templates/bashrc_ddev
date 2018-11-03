@@ -1,6 +1,6 @@
 # Useful shell aliases
 
-PATH_TO_SB_VALET=absolute_path_to_springboard_valet
+PATH_TO_SB_VALET=absolute_path_to_springboard_ddev
 
 # Add these to your .bashrc or .bash_alias.
 

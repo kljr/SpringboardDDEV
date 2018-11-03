@@ -12,6 +12,5 @@ cd ${PATH_TO_SBVT}/sites/$dir/web
 
 drush dm-wipe -y
 drush updb -y
-drush vset encrypt_secure_key_path ${PATH_TO_SBVT}/sites/${dir}/web/sites/default/files/
 drush cc all
 

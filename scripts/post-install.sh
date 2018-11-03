@@ -5,11 +5,11 @@ if [[ ! -d "$script_dir" ]]; then script_dir="$PWD"; fi
 
 source "$script_dir/parse-yaml.sh"
 cd $script_dir
-PATH_TO_SBVT=${PWD:0:${#PWD} - 8}
-SBVT_SITES=${PATH_TO_SBVT}/sites
+PATH_TO_DDEV=${PWD:0:${#PWD} - 8}
+SBVT_SITES=${PATH_TO_DDEV}/sites
 
-if [ ! -d ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer/vendor ]; then
-    cd ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer
+if [ ! -d ${PATH_TO_DDEV}/vendor/jacksonriver/springboard-composer/vendor ]; then
+    cd ${PATH_TO_DDEV}/vendor/jacksonriver/springboard-composer
     git pull
     $HOME/composer.phar about 2> /dev/null
     if [ $? -eq 0 ]; then
@@ -29,5 +29,5 @@ if [ ! -d ${PATH_TO_SBVT}/vendor/jacksonriver/springboard-composer/vendor ]; the
     fi;
 fi;
 
-printf "\n\n Springboard Valet is installed.\n\n"
-printf "Run the \"sbvt-make\" command to install Springboard.\n\n"
+printf "\n\n Springboard DDEV is installed.\n\n"
+printf "Run the \"sbdd-make\" command to install Springboard.\n\n"
