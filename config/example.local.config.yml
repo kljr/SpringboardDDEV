@@ -1,13 +1,4 @@
-# Your local mySQL config.
-mysql_user: "root"
-mysql_password: "root"
-
-# A short string to ensure your automatically generated Springboard Valet
-# aliases don't conflict with existing drush aliases.
-drush_alias_prefix: "sbvt-"
-
-# Springboard will be cloned into springboard-valet/sites/[projectroot]
-# The site will have the hostname [projectroot].test
+# Springboard will be cloned into springboard-ddev/sites/[projectroot]
 # Don't use any special characters in the projectroot. Only a-z, "_", and "-" are allowed.
 projects:
 

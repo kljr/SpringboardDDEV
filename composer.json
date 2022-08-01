@@ -1,16 +1,16 @@
 {
-    "name": "jacksonriver/springboard_valet",
-    "description": "Springboard with Composer + Laravel Valet + Codeception.",
+    "name": "jacksonriver/springboard_ddev",
+    "description": "Springboard with Composer + DDEV + Codeception.",
     "type": "project",
     "license": "MIT",
     "repositories": [
         {
             "type": "package",
             "package": {
-                "name": "jacksonriver/springboard-composer",
+                "name": "jacksonriver/springboard",
                 "version": "dev-develop",
                 "source": {
-                    "url": "https://github.com/JacksonRiver/springboard-composer.git",
+                    "url": "git@gitlab.com:togetherwork/mission/jacksonriver/springboard/springboard.git",
                     "type": "git",
                     "reference": "develop"
                 }
@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "jacksonriver/springboard-composer": "dev-develop"
+        "jacksonriver/springboard": "dev-develop"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -29,7 +29,11 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "scripts/sbvt-install.sh",
+            "scripts/ddev-install.sh",
+            "scripts/post-install.sh"
+        ],
+        "post-update-cmd": [
+            "scripts/ddev-install.sh",
             "scripts/post-install.sh"
         ]
     }

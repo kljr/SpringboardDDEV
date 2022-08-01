@@ -1,20 +1,18 @@
 # Useful shell aliases
 
-PATH_TO_SB_VALET=absolute_path_to_springboard_ddev
+PATH_TO_SB_DDEV=absolute_path_to_springboard_ddev
 
 # Add these to your .bashrc or .bash_alias.
 
 #  Directory switching
 
-alias sbvt='cd $PATH_TO_SB_VALET'
-alias sbvt-make='$PATH_TO_SB_VALET/scripts/sbvt-make.sh'
-alias sbvt-wipe='$PATH_TO_SB_VALET/scripts/wipe-db.sh'
-alias sbvt-wipe_clean='$PATH_TO_SB_VALET/scripts/wipe-db-clean.sh'
-alias sbvt-art='$PATH_TO_SB_VALET/scripts/artifact.sh'
+alias sbdd='cd $PATH_TO_SB_DDEV'
+alias sbdd-make='$PATH_TO_SB_DDEV/scripts/ddev-make.sh'
+alias sbdd-artifact='$PATH_TO_SB_DDEV/scripts/artifact.sh'
 
-function cdv(){
+function ddv(){
     if [ $# -eq 0 ]; then
-        f=${#PATH_TO_SB_VALET}
+        f=${#PATH_TO_SB_DDEV}
         g=${PWD:0:$f+7}
         h=${PWD:$f+7}
         l=$PWD
@@ -32,8 +30,8 @@ function cdv(){
             echo "Can't find that directory"
         fi
     else
-       if [ -d $PATH_TO_SB_VALET/sites/$1 ]; then
-         cd $PATH_TO_SB_VALET/sites/$1
+       if [ -d $PATH_TO_SB_DDEV/sites/$1 ]; then
+         cd $PATH_TO_SB_DDEV/sites/$1
        else
          echo "Can't find that directory"
        fi
@@ -41,9 +39,9 @@ function cdv(){
 }
 
 # Switch to modules dir.
-function cdvm(){
+function ddvm(){
     if [ $# -eq 0 ]; then
-        f=${#PATH_TO_SB_VALET}
+        f=${#PATH_TO_SB_DDEV}
         g=${PWD:0:$f+7}
         h=${PWD:$f+7}
         i=$(strpos $h '/')
@@ -61,10 +59,10 @@ function cdvm(){
             echo "Can't find that directory"
         fi
     else
-          if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
-            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/modules/springboard
+          if [ -d $PATH_TO_SB_DDEV/sites/$1 ] && [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_DDEV/sites/$1/web/sites/all/modules/springboard
           else
-          echo $PATH_TO_SB_VALET/sites/$1
+          echo $PATH_TO_SB_DDEV/sites/$1
             echo "Can't find that directory"
           fi
     fi
@@ -74,9 +72,9 @@ function cdvm(){
 
 # Switch to themes dir.
 
-function cdvt(){
+function ddvt(){
     if [ $# -eq 0 ]; then
-        f=${#PATH_TO_SB_VALET}
+        f=${#PATH_TO_SB_DDEV}
         g=${PWD:0:$f+7}
         h=${PWD:$f+7}
         i=$(strpos $h '/')
@@ -94,8 +92,8 @@ function cdvt(){
             echo "Can't find that directory"
         fi
     else
-        if [ -d $PATH_TO_SB_VALET/sites/$1 ] &&  [ $# -eq 1 ]; then
-            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/themes/springboard_themes
+        if [ -d $PATH_TO_SB_DDEV/sites/$1 ] &&  [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_DDEV/sites/$1/web/sites/all/themes/springboard_themes
         else
             echo "Can't find that directory"
         fi
@@ -104,9 +102,9 @@ function cdvt(){
 # example: "cdvt sbvt" - switch to springboard themes directory of the sbvt install
 
 # Switch to libraries dir.
-function cdvl(){
+function ddvl(){
     if [ $# -eq 0 ]; then
-        f=${#PATH_TO_SB_VALET}
+        f=${#PATH_TO_SB_DDEV}
         g=${PWD:0:$f+7}
         h=${PWD:$f+7}
         i=$(strpos $h '/')
@@ -123,8 +121,8 @@ function cdvl(){
             echo "Can't find that directory"
         fi
     else
-        if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
-            cd $PATH_TO_SB_VALET/sites/$1/web/sites/all/libraries
+        if [ -d $PATH_TO_SB_DDEV/sites/$1 ] && [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_DDEV/sites/$1/web/sites/all/libraries
         else
             echo "Can't find that directory"
         fi
@@ -132,9 +130,9 @@ function cdvl(){
 }
 
 # Switch to libraries dir.
-function cdvw(){
+function ddvw(){
     if [ $# -eq 0 ]; then
-        f=${#PATH_TO_SB_VALET}
+        f=${#PATH_TO_SB_DDEV}
         g=${PWD:0:$f+7}
         h=${PWD:$f+7}
         i=$(strpos $h '/')
@@ -151,45 +149,12 @@ function cdvw(){
             echo "Can't find that directory"
         fi
     else
-        if [ -d $PATH_TO_SB_VALET/sites/$1 ] && [ $# -eq 1 ]; then
-            cd $PATH_TO_SB_VALET/sites/$1/web
+        if [ -d $PATH_TO_SB_DDEV/sites/$1 ] && [ $# -eq 1 ]; then
+            cd $PATH_TO_SB_DDEV/sites/$1/web
         else
             echo "Can't find that directory"
         fi
     fi
-}
-
-function sbvt-prep(){
-    if [ $# -eq 0 ]; then
-        f=${#PATH_TO_SB_VALET}
-        g=${PWD:0:$f+7}
-        h=${PWD:$f+7}
-        l=$PWD
-        i=$(strpos $h '/')
-        if [ -z $i ]; then
-            dir=$PWD
-            site=$h
-        else
-            j=${h:0:$i}
-            site=$j
-        fi
-        if [ -d $dir ]; then
-           cd $dir/web
-           drush sbvt-prep
-           cd $dir
-        else
-            echo "Can't find that directory"
-        fi
-    else
-       if [ -d ${PATH_TO_SB_VALET}/sites/$1/web ]; then
-          current=$PWD;
-          cd ${PATH_TO_SB_VALET}/sites/$1/web
-          drush sbvt-prep
-          cd $current
-       else
-         echo "Can't find that directory"
-       fi
-   fi
 }
 
 function strpos()

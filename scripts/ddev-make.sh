@@ -7,7 +7,6 @@ if [[ ! -d "$script_dir" ]]; then script_dir="$PWD"; fi
 source "$script_dir/parse-yaml.sh"
 cd $script_dir
 PATH_TO_DDEV=${PWD:0:${#PWD} - 8}
-SBVT_SITES=${PATH_TO_DDEV}/sites
 export PATH=$PWD:$PATH
 
 cd ${PATH_TO_DDEV}
@@ -30,16 +29,16 @@ for project in ${!projects__projectroot*}
 
         if [ ! -d ${PATH_TO_DDEV}/sites/$directory ]; then
             echo "Building new site into directory $directory"
-            read -p "Repository name? (default: springboard-composer): " repo
-            [ -z "${repo}" ] && repo='springboard-composer'
-            if [ $repo = 'springboard-composer' ]; then
-                if [ -d ${PATH_TO_DDEV}/vendor/jacksonriver/springboard-composer ]; then
-                    cd ${PATH_TO_DDEV}/vendor/jacksonriver/springboard-composer
+            read -p "Repository name? (default: springboard): " repo
+            [ -z "${repo}" ] && repo='springboard'
+            if [ $repo = 'springboard' ]; then
+                if [ -d ${PATH_TO_DDEV}/vendor/jacksonriver/springboard ]; then
+                    cd ${PATH_TO_DDEV}/vendor/jacksonriver/springboard
                     git pull
-                    cp -R ${PATH_TO_DDEV}/vendor/jacksonriver/springboard-composer ${PATH_TO_DDEV}/sites/$directory
+                    cp -R ${PATH_TO_DDEV}/vendor/jacksonriver/springboard ${PATH_TO_DDEV}/sites/$directory
                 fi;
             else
-                git clone git@github.com:JacksonRiver/$repo.git ${PATH_TO_DDEV}/sites/$directory
+                git clone git@gitlab.com:togetherwork/mission/jacksonriver/springboard/$repo.git ${PATH_TO_DDEV}/sites/$directory
             fi;
 
             cd ${PATH_TO_DDEV}/sites/$directory;
