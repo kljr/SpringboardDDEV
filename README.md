@@ -11,18 +11,18 @@ provisioning, management and updates.
 - Composer.phar installed globally, preferably renamed and moved 
 to /usr/local/bin/composer.
 - Bash
+- DDEV
+- drush installed globally.
 
 # Usage
 
 
 #### Set up Springboard DDEV
 
-1. Clone this repository. Copy `example.local.config.yml` 
-to `local.config.yml` and modify it. Define projects following the example
-project definitions. Don't use the names of any pre-existing DDEV projects.
+1. Clone this repository.
 
 2. There are two ways to install Springboard DDEV:
- 
+
  * __Interactive install__: from the Springboard DDEV root directory
  run `scripts/ddev-install.sh` 
  and follow the prompts. This script runs composer install,
@@ -40,13 +40,11 @@ from the templates directory to the correct locations.
  `composer install` This will update your drush and 
  bash configuration without asking. 
 
-3. Now you're ready to create Springboard instances. Run `sbdd-make` 
-(or scripts/sbdd-make.sh). Follow the prompts to install the projects 
-you defined in the yaml config.
+3. Now you're ready to create Springboard instances. Run `sbdd-make [project_name]` 
 
-After the initial install, if you want to create additional Springboard 
-sites, update local.config.yml with your new project info. Then 
-run `sbdd-make` (or scripts/sbdd-make.sh).
+    Alternatively, you can copy `example.local.config.yml` 
+to `local.config.yml` and modify it. Define projects following the example
+project definitions. Don't use the names of any pre-existing DDEV projects. run ``sbdd-make` without any arguments.
  
 ## What does Springboard DDEV do?
 
@@ -76,15 +74,6 @@ of the project.
 
     If the command prompt is already in a project hierarchy, the above commands will
 work without arguments.
-
-
-## Adding new sites.
-
-If you want to add a new site to Springboard DDEV, then you need to:
-* Define the project in local.config.yml
-* Run `sbdd-make` (or scripts/sbdd-make.sh)
-
-Adding too many sites at once can cause PHP timeouts, so be reasonable.
 
 ## Uninstalling Springboard DDEV
 

@@ -20,50 +20,61 @@ if [ ! -d ${PATH_TO_DDEV}/sites ]; then
 fi;
 #( set -o posix ; set ) | more
 
-for project in ${!projects__projectroot*}
-    do
-
-        # Get the docroot directory name.
-        directory=${!project}
-        directory=${directory/__/\/}
-
-        if [ ! -d ${PATH_TO_DDEV}/sites/$directory ]; then
-            echo "Building new site into directory $directory"
-            read -p "Repository name? (default: springboard): " repo
-            [ -z "${repo}" ] && repo='springboard'
-            if [ $repo = 'springboard' ]; then
-                if [ -d ${PATH_TO_DDEV}/vendor/jacksonriver/springboard ]; then
-                    cd ${PATH_TO_DDEV}/vendor/jacksonriver/springboard
-                    git pull
-                    cp -R ${PATH_TO_DDEV}/vendor/jacksonriver/springboard ${PATH_TO_DDEV}/sites/$directory
-                fi;
-            else
-                git clone git@gitlab.com:togetherwork/mission/jacksonriver/springboard/$repo.git ${PATH_TO_DDEV}/sites/$directory
+function build_sbdd() {
+    directory=$1;
+    if [ ! -d ${PATH_TO_DDEV}/sites/$directory ]; then
+        echo "Building new site into directory ${PATH_TO_DDEV}/sites/$directory"
+        read -p "Repository name? (default: springboard): " repo
+        [ -z "${repo}" ] && repo='springboard'
+        if [ $repo = 'springboard' ]; then
+            if [ -d ${PATH_TO_DDEV}/vendor/jacksonriver/springboard ]; then
+                cd ${PATH_TO_DDEV}/vendor/jacksonriver/springboard
+                git pull
+                cp -R ${PATH_TO_DDEV}/vendor/jacksonriver/springboard ${PATH_TO_DDEV}/sites/$directory
             fi;
+        else
+            git clone git@gitlab.com:togetherwork/mission/jacksonriver/springboard/$repo.git ${PATH_TO_DDEV}/sites/$directory
+        fi;
 
-            cd ${PATH_TO_DDEV}/sites/$directory;
-            read -p "Branch name? (default: develop): " branch
-            [ -z "${branch}" ] && branch='develop'
-            git checkout $branch
-            git pull
-            $HOME/composer.phar about 2> /dev/null
-            if [ $? -eq 0 ]; then
-                $HOME/composer.phar run-script dev-update
-                ddev start
+        cd ${PATH_TO_DDEV}/sites/$directory;
+        read -p "Branch name? (default: develop): " branch
+        [ -z "${branch}" ] && branch='develop'
+        git checkout $branch
+        git pull
+        $HOME/composer.phar about 2> /dev/null
+        if [ $? -eq 0 ]; then
+            $HOME/composer.phar run-script dev-update
+            ddev start
+            else
+                $HOME/composer about 2> /dev/null
+                if [ $? -eq 0 ]; then
+                    $HOME/composer run-script dev-update
+                    ddev start
                 else
-                    $HOME/composer about 2> /dev/null
+                    /usr/local/bin/composer about 2> /dev/null
                     if [ $? -eq 0 ]; then
-                        $HOME/composer run-script dev-update
+                        /usr/local/bin/composer run-script dev-update
                         ddev start
                     else
-                        /usr/local/bin/composer about 2> /dev/null
-                        if [ $? -eq 0 ]; then
-                            /usr/local/bin/composer run-script dev-update
-                            ddev start
-                        else
-                            echo "Could not find composer"
-                    fi;
+                        echo "Could not find composer"
                 fi;
             fi;
         fi;
-    done
+    else
+      echo "${PATH_TO_DDEV}/sites/$directory already exists. No action taken."
+    fi;
+}
+
+if [ $1 ]; then
+ build_sbdd $1
+else
+    for project in ${!projects__projectroot*}
+        do
+
+            # Get the docroot directory name.
+            directory=${!project}
+            directory=${directory/__/\/}
+
+        done
+fi;
+
