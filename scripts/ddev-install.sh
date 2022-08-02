@@ -27,7 +27,7 @@ fi;
 
 if [ ! -f $HOME/.bashrc_ddev ] && [ "$profiletype" != "none" ]; then
     echo "Do you wish to update .$profiletype with an include for Springboard DDEV's shell commands?"
-    INCLUDE_DDEV=false
+    INCLUDE_DDEV=true
     select yn in "Yes" "No"; do
         case $yn in
             Yes ) INCLUDE_DDEV=true; break;;
