@@ -7,8 +7,7 @@ PATH_TO_SB_DDEV=absolute_path_to_springboard_ddev
 #  Directory switching
 
 alias sbdd='cd $PATH_TO_SB_DDEV'
-alias sbdd-make='$PATH_TO_SB_DDEV/scripts/ddev-make.sh'
-alias sbdd-artifact='$PATH_TO_SB_DDEV/scripts/artifact.sh'
+alias sbdd-make='$PATH_TO_SB_DDEV/scripts/sbdd-make.sh'
 
 function ddv(){
     if [ $# -eq 0 ]; then

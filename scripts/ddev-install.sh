@@ -65,3 +65,24 @@ if [ -d $HOME/.drush ] && [ ! -f $HOME/.drush/dd.aliases.drushrc.php ]; then
         fi;
     fi;
 fi;
+
+if [ ! -d ${PATH_TO_DDEV}/vendor/jacksonriver/springboard/web ]; then
+    cd ${PATH_TO_DDEV}/vendor/jacksonriver/springboard
+    $HOME/composer.phar about 2> /dev/null
+    if [ $? -eq 0 ]; then
+        $HOME/composer.phar install
+        else
+            $HOME/composer about 2> /dev/null
+            if [ $? -eq 0 ]; then
+                $HOME/composer install
+            else
+                /usr/local/bin/composer about 2> /dev/null
+                if [ $? -eq 0 ]; then
+                    /usr/local/bin/composer install
+                else
+                    echo "Could not find composer"
+            fi;
+        fi;
+    fi;
+    cd ${PATH_TO_DDEV}
+fi;

@@ -9,3 +9,4 @@ config/local.config.yml
 /artifacts/sites/*
 !.gitkeep
 !README.md
+.idea

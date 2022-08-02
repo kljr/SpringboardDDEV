@@ -49,14 +49,17 @@ for project in ${!projects__projectroot*}
             $HOME/composer.phar about 2> /dev/null
             if [ $? -eq 0 ]; then
                 $HOME/composer.phar run-script dev-update
+                ddev start
                 else
                     $HOME/composer about 2> /dev/null
                     if [ $? -eq 0 ]; then
                         $HOME/composer run-script dev-update
+                        ddev start
                     else
                         /usr/local/bin/composer about 2> /dev/null
                         if [ $? -eq 0 ]; then
                             /usr/local/bin/composer run-script dev-update
+                            ddev start
                         else
                             echo "Could not find composer"
                     fi;
