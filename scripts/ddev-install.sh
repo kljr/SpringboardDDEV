@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export COMPOSER_PROCESS_TIMEOUT=600;
+export COMPOSER_MEMORY_LIMIT=-1;
 
 # Deal with relative paths
 script_dir="${BASH_SOURCE%/*}"
