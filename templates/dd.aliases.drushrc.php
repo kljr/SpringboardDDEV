@@ -8,7 +8,7 @@ $directory = explode('.', $vars['aliasname'])[1];
 
 $aliases['*'] = array(
   'uri' => 'https://' . $directory . '.ddev.local:8444',
-  'root' => $path . '/' . $directory . '/web',
+  'root' => $path . '/sites/' . $directory . '/web',
   'path-aliases' => array(
     '%drush-script' => '/usr/local/bin/drush',
   ),
