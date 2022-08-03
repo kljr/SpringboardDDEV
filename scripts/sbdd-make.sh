@@ -74,7 +74,7 @@ else
             # Get the docroot directory name.
             directory=${!project}
             directory=${directory/__/\/}
-
+            build_sbdd ${directory}
         done
 fi;
 
