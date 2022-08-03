@@ -79,9 +79,7 @@ work without arguments.
 
 ## Uninstalling Springboard DDEV
 
-* Delete the springboardDDEV directory
 * Remove the bashrc_ddev include lines from your .profile, .login_profile or
 .bash_profile file.
 * Delete ~/.bashrc_ddev
-* Remove the ddev custom shell commands from ~/.drush/drushrc.php
 * Delete ~/.drush/dd.aliases.drushrc.php
