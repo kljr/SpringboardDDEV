@@ -2,7 +2,7 @@
 
 A Springboard development wrapper for DDEV
 .
-Provides multiple fully-configured Springboard sites - each with working 
+Installs DDEV and provides multiple fully-configured Springboard sites - each with working 
 copies of the Springboard repositories - and quick, pain-free 
 provisioning, management and updates.
 
@@ -11,7 +11,6 @@ provisioning, management and updates.
 - Composer.phar installed globally, preferably renamed and moved 
 to /usr/local/bin/composer.
 - Bash
-- DDEV
 - drush installed globally.
 
 # Usage
@@ -50,8 +49,9 @@ Don't use the names of any pre-existing DDEV projects. Only letters, numbers and
  
 ## What does Springboard DDEV do?
 
-* Downloads springboard and its vendor dependencies.
-* Creates and manages multiple DDEV sites
+* Installs DDEV
+* Downloads Springboard and its vendor dependencies.
+* Allows creation and management of multiple Springboard sites
 * Provides shell aliases and functions to quickly navigate the directory
 hierarchy and perform commandline tasks.
 * Creates Drush aliases which match your project folder name:
@@ -64,7 +64,7 @@ and bash aliases to ease project management.
 
 > Directory switching
 
-* `sbdd` - Go to the Springboard DDDEV directory.
+* `sbdd` - Go to the SpringboardDDEV directory.
 * `ddv [project_folder_name/path]` - switch to a project root folder or any path in a 
 project.
 * `ddvw [project_folder_name]` - switch to the web directory of the project.
