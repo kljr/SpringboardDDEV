@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 export COMPOSER_PROCESS_TIMEOUT=600;
 export COMPOSER_MEMORY_LIMIT=-1;
+
 # Find the absolute path to PSringboard Valet
 script_dir="${BASH_SOURCE%/*}"
 if [[ ! -d "$script_dir" ]]; then script_dir="$PWD"; fi

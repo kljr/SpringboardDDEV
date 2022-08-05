@@ -1,4 +1,6 @@
 #!/bin/bash
+export COMPOSER_PROCESS_TIMEOUT=600;
+export COMPOSER_MEMORY_LIMIT=-1;
 
 # Script to download and install DDEV-Local, https://github.com/drud/ddev
 # Usage: install_ddev.sh or install_ddev.sh <version>
