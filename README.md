@@ -2,9 +2,9 @@
 
 A Springboard development wrapper for DDEV
 .
-Installs DDEV and provides multiple fully-configured Springboard sites - each with working 
-copies of the Springboard repositories - and quick, pain-free 
-provisioning, management and updates.
+Installs DDEV and provides a framework for creating multiple 
+Springboard sites - and quick, pain-free provisioning, management 
+and updates.
 
 ## Prerequisites
 
@@ -51,19 +51,20 @@ Don't use the names of any pre-existing DDEV projects. Only letters, numbers and
 
 * Installs DDEV
 * Downloads Springboard and its vendor dependencies.
-* Allows creation and management of multiple Springboard sites
-* Provides shell aliases and functions to quickly navigate the directory
-hierarchy and perform commandline tasks.
-* Creates Drush aliases which match your project folder name:
+* Accelerates creation and management of multiple Springboard sites:
+  * Provides shell aliases and functions to create sites, navigate the directory
+hierarchy and perform command-line tasks.
+  * Creates Drush aliases which match your project folder name:
 `drush @dd-`[`project_folder_name`].
+  * Keeps a fully-built, cached copy of Springboard's develop branch as a base for
+  new site creation.
 
 ## Useful shell aliases and functions
 
 The install script creates custom shell commands, drush shell aliases,
 and bash aliases to ease project management.
 
-> Directory switching
-
+* `sbdd-make [projectName]` - create a new Springboard site and start serving the site via DDEV.
 * `sbdd` - Go to the SpringboardDDEV directory.
 * `ddv [project_folder_name/path]` - switch to a project root folder or any path in a 
 project.
