@@ -2,12 +2,34 @@
 
 PATH_TO_SB_DDEV=absolute_path_to_springboard_ddev
 
-# Add these to your .bashrc or .bash_alias.
-
 #  Directory switching
 
 alias sbdd='cd $PATH_TO_SB_DDEV'
 alias sbdd-make='$PATH_TO_SB_DDEV/scripts/sbdd-make.sh'
+
+function sbdd-export() {
+    REPLACE_DB=true
+    if [ -f ${PATH_TO_SB_DDEV}/artifacts/${1}.sql.gz ]; then
+        echo "Do you wish to replace the existing artifact ${1}?"
+        select yn in "Yes" "No"; do
+            case $yn in
+                Yes ) REPLACE_DB=true; break;;
+                No ) REPLACE_DB=false; break;;
+            esac
+        done
+    fi;
+
+   if [ ${REPLACE_DB} = true ]; then
+      ddev export-db $2 --file=${PATH_TO_SB_DDEV}/artifacts/${1}.sql.gz
+   else
+     echo "No action taken"
+   fi;
+
+}
+
+function sbdd-import() {
+    ddev import-db $2 --src=${PATH_TO_SB_DDEV}/artifacts/${1}.sql.gz
+}
 
 function ddv(){
     if [ $# -eq 0 ]; then

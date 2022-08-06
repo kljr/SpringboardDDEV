@@ -58,6 +58,7 @@ hierarchy and perform command-line tasks.
 `drush @dd-`[`project_folder_name`].
   * Keeps a fully-built, cached copy of Springboard's develop branch as a base for
   new site creation.
+  * Enables quick db dumps and restores of any project, as an alternative to DDEV's automatic backups.
 
 ## Useful shell aliases and functions
 
@@ -77,6 +78,13 @@ of the project.
 
     If the command prompt is already in a project hierarchy, the above commands will
 work without arguments.
+
+DDEV has a per-project db snapshot feature. SpringboardDDEV has a
+ global db backup and restore feature which allows easy sharing of a single
+ db among projects or easy restoration of a db to a single project:
+
+* `sbdd-export [backupName] [optionalProjectName]` - Backup a db to the artifacts folder. Omitting the project name will default to the current project.
+* `sbdd-import [backupName] [optionalProjectName]` - Import a db from the artifacts folder. Omitting the project name will default to the current project.
 
 ## Uninstalling Springboard DDEV
 
