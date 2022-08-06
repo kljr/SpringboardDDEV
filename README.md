@@ -39,11 +39,9 @@ from the templates directory to the correct locations.
  `composer install` This will update your drush and 
  bash configuration without asking. 
 
-3. Now you're ready to create Springboard instances. Run `sbdd-make [ProjectName]`. This command will install Springboard at springboardDDEV/sites/\[ProjectName], and start DDEV.
+#### Use Springboard DDEV
 
-    Alternatively, you can copy `example.local.config.yml` 
-to `local.config.yml` and modify it. Define projects following the example
-project definitions. Run `sbdd-make` without any arguments.
+Now you're ready to create Springboard instances. Run `sbdd-make [ProjectName]`. This command will install Springboard at __~/springboardDDEV/sites/\[ProjectName]__, and start DDEV.
 
 Don't use the names of any pre-existing DDEV projects. Only letters, numbers and hyphens are allowed in DDEV project names, no underscores.
  
