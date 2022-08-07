@@ -1,9 +1,9 @@
 # Springboard DDEV
 
-A Springboard development wrapper for DDEV
-.
+A Springboard development wrapper for DDEV.
+
 Installs DDEV and provides a framework for creating multiple 
-Springboard sites - and quick, pain-free provisioning, management 
+Springboard sites - with quick provisioning, management 
 and updates.
 
 ## Prerequisites
