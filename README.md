@@ -84,6 +84,22 @@ DDEV has a per-project db snapshot feature. SpringboardDDEV has a
 * `sbdd-export [backupName] [optionalProjectName]` - Backup a db to the artifacts folder. Omitting the project name will default to the current project.
 * `sbdd-import [backupName] [optionalProjectName]` - Import a db from the artifacts folder. Omitting the project name will default to the current project.
 
+## Custom Springboard commands for DDEV
+
+* `ddev client-db-sync`     syncs sanitized client database from S3 with the ddev database.
+* `ddev client-encrypt-key` fetches client's encrypt_key.key for use in ddev.
+* `ddev client-files-sync`  syncs client files directory from S3 with the ddev site.
+* `ddev client-sync`        syncs client database and files directory with the ddev site.
+* `ddev db-sync`            syncs any Drush aliased db to ddev*
+* `ddev encrypt`            fix encrypt paths*
+* `ddev prep`               Install development modules, remove tfa and fraud, create default users.
+* `ddev replace`            replace springboard.sql.gz with the current db.
+* `ddev sanitize`           sanitize the db.
+* `ddev dbeaver`            open the db in DBeaver.
+* `ddev sequelace`          open the db in SequelAce.
+* `ddev sequelpro`          open the db in SequelPro.
+* `ddev ddbg`               view the drupal_debug.txt in the web container.
+
 ## Uninstalling Springboard DDEV
 
 * Remove the bashrc_ddev include lines from your .profile, .login_profile or

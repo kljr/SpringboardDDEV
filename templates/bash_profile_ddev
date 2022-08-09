@@ -1,4 +1,4 @@
 
 if [ -f $HOME/.bashrc_ddev ]; then
-    . $HOME/.bashrc_ddev
+    source $HOME/.bashrc_ddev
 fi
