@@ -90,8 +90,8 @@ DDEV has a per-project db snapshot feature. SpringboardDDEV has a
 * `ddev client-encrypt-key` fetches client's encrypt_key.key for use in ddev.
 * `ddev client-files-sync`  syncs client files directory from S3 with the ddev site.
 * `ddev client-sync`        syncs client database and files directory with the ddev site.
-* `ddev db-sync`            syncs any Drush aliased db to ddev*
-* `ddev encrypt`            fix encrypt paths*
+* `ddev db-sync`            syncs any Drush aliased db to ddev.
+* `ddev encrypt`            fix encrypt paths.
 * `ddev prep`               Install development modules, remove tfa and fraud, create default users.
 * `ddev replace`            replace springboard.sql.gz with the current db.
 * `ddev sanitize`           sanitize the db.
@@ -99,6 +99,8 @@ DDEV has a per-project db snapshot feature. SpringboardDDEV has a
 * `ddev sequelace`          open the db in SequelAce.
 * `ddev sequelpro`          open the db in SequelPro.
 * `ddev ddbg`               view the drupal_debug.txt in the web container.
+* `ddev wipe`               delete the current db and replace with `.circleci/database.initdb.d/springboard.sql.gz`.
+
 
 ## Uninstalling Springboard DDEV
 
